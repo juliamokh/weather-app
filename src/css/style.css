@@ -1,0 +1,158 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  color: #fff;
+  background: linear-gradient(to right, #e55d87, #5fc3e4);
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+}
+
+.page-content {
+  width: 600px;
+  margin: 50px auto;
+}
+
+.heading {
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 30px;
+  letter-spacing: 1.5px;
+}
+
+.search-bar {
+  margin: 20px 0;
+  display: flex;
+  position: relative;
+}
+
+.search-bar .item {
+  height: 50px;
+  color: #fff;
+  font-size: 18px;
+  background-color:rgba(255,255,255, 0.1);
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.search-bar .item:hover,
+.search-bar .item:focus {
+  background-color:rgba(255,255,255, 0.3);
+}
+
+.search-bar input[type="text"] {
+  flex-grow: 1;
+  margin: 0 5px;
+  padding-left: 10px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.search-bar input[type="text"]::placeholder {
+  color: rgba(255,255,255, 0.4);
+  font-family: 'Roboto', sans-serif;
+  font-size: 18px;
+}
+
+.search-bar select {
+  width: 50px;
+  font-family: 'Roboto', sans-serif;
+  cursor: pointer;
+}
+
+.search-bar .btn {
+  width: 50px;
+  cursor: pointer;
+}
+
+.search-bar .btn-search {
+  position: absolute;
+  right: 55px;
+  background-color: transparent;
+}
+
+.today-forecast {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  background-color:rgba(255,255,255, 0.1);
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.today-forecast .wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.today-forecast .city {
+  margin-bottom: 20px;
+  font-size: 36px;
+  text-transform: uppercase;
+}
+
+.today-forecast .current-day {
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.today-forecast .date {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.today-forecast .wind {
+  margin-bottom: 10px;
+}
+
+.today-forecast img {
+  width: 200px;
+}
+
+.today-forecast .weather {
+  font-size: 24px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.today-forecast .temperature {
+  display: flex;
+  justify-content: space-around;
+  font-size: 22px;
+}
+
+.today-forecast .current-temperature {
+  margin: auto 0;
+  font-size: 100px;
+}
+
+.week-forecast {
+  margin-top: 20px;
+  display: flex;
+  background-color:rgba(255,255,255, 0.1);
+  border: 1px solid transparent;
+  border-radius: 5px;
+}
+
+.week-forecast .day-forecast {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+.week-forecast .day-forecast:hover {
+  cursor: pointer;
+  background-color:rgba(255,255,255, 0.3);
+}
+
+.week-forecast .day {
+  text-transform: uppercase;
+}
+
+.week-forecast img {
+  width: 50px;
+  margin: 10px 0;
+}
