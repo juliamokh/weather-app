@@ -22,9 +22,9 @@ dom.search.addEventListener('keyup', function(e) {
 });
 
 function getForecast() {
-  // let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
+  let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
 
-  fetch(api.baseUrl + api.key + api.days + api.endpoint + dom.search.value)
+  fetch(query)
     .then(response => response.json())
     .then(data => {
       forecast = data;
