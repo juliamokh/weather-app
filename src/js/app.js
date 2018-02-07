@@ -15,8 +15,9 @@ const dom = {
 
 let forecast = {};
 
-dom.search.addEventListener('keyup', function(e) {
+dom.search.addEventListener('keypress', function(e) {
   if (e.keyCode === 13) {
+    e.preventDefault()
     getForecast();
   }
 });
