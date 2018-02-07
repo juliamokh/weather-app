@@ -24,14 +24,30 @@ dom.search.addEventListener('keyup', function(e) {
 function getForecast() {
   let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
 
+  // fetch(query)
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     forecast = data;
+  //     console.log(forecast);
+  //     renderDayForecast(0);
+  //     renderWeekForecast();
+  //   });  
+
   fetch(query)
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw Error(response.statusText);
+      }
+      return response.json();
+    })
     .then(data => {
       forecast = data;
       console.log(forecast);
       renderDayForecast(0);
-      renderWeekForecast();
-    });  
+      renderWeekForecast()
+    })
+    .catch(error => console.log(error) 
+    );       
 };
 
 function renderDayForecast(day) {
