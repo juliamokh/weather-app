@@ -13,67 +13,21 @@
 <body>
   <main class="page-content">
     <h1 class="heading">- Weather app -</h1>
-    <form action="#" method="get" class="search-bar">
-      <button type="button" class="item btn btn-star"><i class="far fa-star"></i></button>
-      <input type="text" name="search" placeholder="Location" class="item">
-      <button type="submit" class="item btn btn-search"><i class="fas fa-search"></i></button>
-      <select name="unit" class="item">
-        <option value="GC">°C</option>
+    <form class="search-bar">
+      <button type="button" class="btn-star"><i class="far fa-star"></i></button>
+      <input type="text" id="search" placeholder="Type location and press enter">
+      <div class="icon-search"><i class="fas fa-search"></i></div>
+      <select name="unit">
+        <option selected value="GC">°C</option>
         <option value="FA">°F</option>
       </select>
     </form>
-    <section class="today-forecast">
-      <div class="wrapper">
-          <div class="city">Kyiv</div>
-          <div class="current-day">Monday</div>
-          <time class="date" datetime="2018-02-05">05/02/2018</time>
-          <div class="wind">Wind 6 km/h</div>
-          <div class="humidity"><i class="fas fa-tint"></i> 30%</div>
-      </div>
-      <div class="wrapper">
-        <div><img src="img/icon.png"></div>
-        <div class="weather">Partly cloudy</div>
-      </div>
-      <div class="wrapper">
-        <div class="temperature">
-          <div><i class="fas fa-long-arrow-alt-down"></i> 18°</div>
-          <div><i class="fas fa-long-arrow-alt-up"></i> 25°</div>
-        </div>      
-        <div class="current-temperature">22°</div>
-      </div>
+    <section id="today-forecast" class="today-forecast">
     </section>
-    <section class="week-forecast">
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
-      <div class="day-forecast">
-        <div class="day">tue</div>
-        <div><img src="img/icon.png"></div>
-        <div class="temperature">25°</div>
-      </div>
+    <section id="week-forecast" class="week-forecast">
     </section>
   </main>
+
+  <script src="js/app.js"></script>
 </body>
 </html>

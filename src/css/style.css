@@ -21,13 +21,15 @@ html {
   letter-spacing: 1.5px;
 }
 
+/* SEARCH BAR */
+
 .search-bar {
   margin: 20px 0;
   display: flex;
   position: relative;
 }
 
-.search-bar .item {
+.search-bar > * {
   height: 50px;
   color: #fff;
   font-size: 18px;
@@ -36,9 +38,14 @@ html {
   border-radius: 5px;
 }
 
-.search-bar .item:hover,
-.search-bar .item:focus {
+.search-bar > *:hover,
+.search-bar > *:focus {
   background-color:rgba(255,255,255, 0.3);
+}
+
+.search-bar .btn-star {
+  width: 50px;
+  cursor: pointer;
 }
 
 .search-bar input[type="text"] {
@@ -54,30 +61,40 @@ html {
   font-size: 18px;
 }
 
+.search-bar .icon-search {
+  position: absolute;
+  right: 70px;
+  top: 15px;
+  background-color: transparent;
+  pointer-events: none;
+}
+
 .search-bar select {
   width: 50px;
   font-family: 'Roboto', sans-serif;
   cursor: pointer;
 }
 
-.search-bar .btn {
-  width: 50px;
-  cursor: pointer;
-}
+/* TODAY FORECAST */
 
-.search-bar .btn-search {
-  position: absolute;
-  right: 55px;
-  background-color: transparent;
-}
-
-.today-forecast {
-  display: flex;
-  justify-content: space-between;
+.today-forecast.active {
   padding: 20px;
   background-color:rgba(255,255,255, 0.1);
   border: 1px solid transparent;
   border-radius: 5px;
+}
+
+.today-forecast .city {
+  margin-bottom: 20px;
+  font-size: 36px;
+  text-transform: uppercase;
+  overflow: scroll;
+  border-bottom: 1px solid rgba(255,255,255, 0.4);
+}
+
+.today-forecast .container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .today-forecast .wrapper {
@@ -85,16 +102,10 @@ html {
   flex-direction: column;
 }
 
-.today-forecast .city {
-  margin-bottom: 20px;
-  font-size: 36px;
-  text-transform: uppercase;
-}
-
 .today-forecast .current-day {
   font-size: 24px;
   text-transform: uppercase;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .today-forecast .date {
@@ -103,7 +114,7 @@ html {
 }
 
 .today-forecast .wind {
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .today-forecast img {
@@ -122,12 +133,16 @@ html {
   font-size: 22px;
 }
 
+.today-forecast .min_temperature {
+  margin-right: 20px;
+}
+
 .today-forecast .current-temperature {
   margin: auto 0;
   font-size: 100px;
 }
 
-.week-forecast {
+.week-forecast.active {
   margin-top: 20px;
   display: flex;
   background-color:rgba(255,255,255, 0.1);
