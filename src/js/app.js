@@ -1,5 +1,3 @@
-'use strict';
-
 const api = {
   baseUrl : 'https://api.weatherbit.io/v2.0/forecast/daily',
   key : '?key=ddb43221d2a548889fb0e23b1266b34c',
@@ -29,12 +27,12 @@ function getForecast() {
     .then(data => {
       forecast = data;
       console.log(forecast);
-      renderForecast(0);
+      renderDayForecast(0);
       renderWeekForecast();
     });  
 };
 
-function renderForecast(day) {
+function renderDayForecast(day) {
   let weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   let date = new Date(forecast.data[day].datetime);
 
@@ -45,7 +43,7 @@ function renderForecast(day) {
               '<time class="date" datetime="' + forecast.data[day].datetime + '">' + forecast.data[day].datetime + '</time>' +
               '<div class="wind">Wind ' + forecast.data[day].wind_spd + ' km/h</div>' +
               '<div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div></div>' +
-              '<div class="wrapper"><div><img src="img/' + renderIcons(day) + '.svg"></div>' +
+              '<div class="wrapper"><div><img src="img/' + renderIcon(day) + '.svg"></div>' +
               '<div class="weather">' + forecast.data[day].weather.description + '</div></div>' +
               '<div class="wrapper"><div class="temperature">' +
               '<div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '°</div>' +
@@ -64,14 +62,14 @@ function renderWeekForecast() {
     let date = new Date(forecast.data[i].datetime);
     let html =  '<div class="day-forecast">' +
                 '<div class="day">' + weekday[date.getDay()] + '</div>' +
-                '<div><img src="img/' + renderIcons(i) + '.svg"></div>' +
+                '<div><img src="img/' + renderIcon(i) + '.svg"></div>' +
                 '<div class="temperature">' + forecast.data[i].temp + '°</div>' +
                 '</div>';
     dom.weekForecast.insertAdjacentHTML('beforeend', html);
   };
 };
 
-function renderIcons(day) {
+function renderIcon(day) {
   switch(forecast.data[day].weather.code) {
     case '200':
     case '201':
@@ -126,4 +124,3 @@ function renderIcons(day) {
       return 'cloudy';
   }
 };
-
