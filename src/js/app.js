@@ -1,3 +1,5 @@
+console.log('i see you')
+
 const api = {
   baseUrl : 'https://api.weatherbit.io/v2.0/forecast/daily',
   key : '?key=ddb43221d2a548889fb0e23b1266b34c',
