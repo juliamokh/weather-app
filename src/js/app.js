@@ -36,13 +36,17 @@ function getForecast() {
   fetch(query)
     .then(response => {
       if (!response.ok) {
-        throw Error(response.statusText);
+        console.log(response.status);
       }
+      else {
       return response.json();
+      console.log(response.status);
+      }
     })
     .then(data => {
       forecast = data;
       console.log(forecast);
+      console.log(data);
       renderDayForecast(0);
       renderWeekForecast()
     })
