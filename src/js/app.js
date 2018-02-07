@@ -1,4 +1,4 @@
-console.log('i see you')
+'use strict'
 
 const api = {
   baseUrl : 'https://api.weatherbit.io/v2.0/forecast/daily',
@@ -22,9 +22,9 @@ dom.search.addEventListener('keyup', function(e) {
 });
 
 function getForecast() {
-  let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
+  // let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
 
-  fetch(query)
+  fetch(api.baseUrl + api.key + api.days + api.endpoint + dom.search.value)
     .then(response => response.json())
     .then(data => {
       forecast = data;
