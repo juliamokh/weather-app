@@ -10,63 +10,59 @@ const api = {
 const dom = {
   search : document.getElementById('search'),
   todayForecast : document.getElementById('today-forecast'),
-  weekForecast : document.getElementById('week-forecast')
+  weekForecast : document.getElementById('week-forecast'),
+  unit : document.getElementById('unit'),
+  star : document.getElementById('star'),
+  favorite : document.getElementById('favorite'),
+  recent : document.getElementById('recent')
 };
 
-let forecast = {};
+let recentCities = localStorage.getItem('recentCities') ? JSON.parse(localStorage.getItem('recentCities')) : [];
+
+let favoriteCities = localStorage.getItem('favoriteCities') ? JSON.parse(localStorage.getItem('favoriteCities')) : [];
 
 dom.search.addEventListener('keypress', function(e) {
   if (e.keyCode === 13) {
-    e.preventDefault()
-    getForecast();
+    getForecast(dom.search.value);
+    addToRecent(dom.search.value)
   }
 });
 
-function getForecast() {
-  let query = api.baseUrl + api.key + api.days + api.endpoint + dom.search.value;
+dom.star.addEventListener('click', function () {
+  addToFavorite(dom.search.value);
+  renderList(favoriteCities, dom.favorite);
+});
 
-  // fetch(query)
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     forecast = data;
-  //     console.log(forecast);
-  //     renderDayForecast(0);
-  //     renderWeekForecast();
-  //   });  
-
-  fetch(query)
+function getForecast(city) {
+  let url = api.baseUrl + api.key + api.days + getUnits() + api.endpoint + city;
+  fetch(url)
     .then(response => {
       if (!response.ok) {
         console.log(response.status);
       }
       else {
       return response.json();
-      console.log(response.status);
       }
     })
     .then(data => {
-      forecast = data;
-      console.log(forecast);
       console.log(data);
-      renderDayForecast(0);
-      renderWeekForecast()
+      renderDayForecast(data, 0);
+      renderWeekForecast(data);
+      renderList(favoriteCities, dom.favorite);  
+      renderList(recentCities, dom.recent); 
     })
-    .catch(error => console.log(error) 
-    );       
+    .catch(error => console.log(error));       
 };
 
-function renderDayForecast(day) {
-  let weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  let date = new Date(forecast.data[day].datetime);
-
+function renderDayForecast(forecast, day) {
   dom.todayForecast.classList.add('active');
   dom.todayForecast.innerHTML = '';
   let html =  '<div class="city">' + forecast.city_name + ', ' + forecast.country_code + '</div>' +
-              '<div class="container"><div class="wrapper"><div class="current-day">' + weekday[date.getDay()] + '</div>' +
+              '<div class="container"><div class="wrapper"><div class="current-day">' + getWeekday(forecast.data[day].datetime) + '</div>' +
               '<time class="date" datetime="' + forecast.data[day].datetime + '">' + forecast.data[day].datetime + '</time>' +
-              '<div class="wind">Wind ' + forecast.data[day].wind_spd + ' km/h</div>' +
+              '<div class="wind">Wind ' + forecast.data[day].wind_spd + ' ' + getSpeedUnits() + '</div>' +
               '<div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div></div>' +
-              '<div class="wrapper"><div><img src="img/' + renderIcon(day) + '.svg"></div>' +
+              '<div class="wrapper"><div><img src="img/' + drawIcon(forecast.data[day].weather.code) + '.svg"></div>' +
               '<div class="weather">' + forecast.data[day].weather.description + '</div></div>' +
               '<div class="wrapper"><div class="temperature">' +
               '<div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '°</div>' +
@@ -75,25 +71,60 @@ function renderDayForecast(day) {
   dom.todayForecast.innerHTML = html;
 };
 
-function renderWeekForecast() {
-  let weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
+function renderWeekForecast(forecast) {
   dom.weekForecast.classList.add('active');
   dom.weekForecast.innerHTML = '';
-
   for (let i = 1; i < 7; i++) {
-    let date = new Date(forecast.data[i].datetime);
     let html =  '<div class="day-forecast">' +
-                '<div class="day">' + weekday[date.getDay()] + '</div>' +
-                '<div><img src="img/' + renderIcon(i) + '.svg"></div>' +
+                '<div class="day">' + getShortWeekday(forecast.data[i].datetime) + '</div>' +
+                '<div><img src="img/' + drawIcon(forecast.data[i].weather.code) + '.svg"></div>' +
                 '<div class="temperature">' + forecast.data[i].temp + '°</div>' +
                 '</div>';
     dom.weekForecast.insertAdjacentHTML('beforeend', html);
   };
 };
 
-function renderIcon(day) {
-  switch(forecast.data[day].weather.code) {
+function renderList(list, parent) {
+  parent.innerHTML = '';
+  list.forEach(function(item) {
+    let listElem = document.createElement('li');
+    listElem.innerText = item;       
+    parent.appendChild(listElem);  
+  });    
+};
+
+function addToRecent(city) {
+  recentCities.push(city);
+  if (recentCities.length === 11) {
+    recentCities.shift();
+  }
+  localStorage.setItem('recentCities', JSON.stringify(recentCities));
+  console.log(recentCities);                       
+};
+
+function addToFavorite(city) {
+  favoriteCities.push(city);
+  if (favoriteCities.length === 11) {
+    favoriteCities.shift();
+  }
+  localStorage.setItem('favoriteCities', JSON.stringify(favoriteCities));
+  console.log(favoriteCities);
+};
+
+function getWeekday(datetime) {
+  let weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  let date = new Date(datetime);
+  return weekday[date.getDay()];
+};
+
+function getShortWeekday(datetime) {
+  let weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  let date = new Date(datetime);
+  return weekday[date.getDay()];
+};
+
+function drawIcon(weatherCode) {
+  switch(weatherCode) {
     case '200':
     case '201':
     case '202':
@@ -145,5 +176,33 @@ function renderIcon(day) {
       return 'cloudy-day-2';
     case '804':
       return 'cloudy';
+  }
+};
+
+function isCelciusSelected() {
+  let value = unit.options[unit.selectedIndex].value;
+  if (value === 'GC') {
+    return true;
+  }
+  else {
+    return false;
+  }
+};
+
+function getUnits() {
+  if (isCelciusSelected()) {
+    return '&units=M';
+  }
+  else {
+    return '&units=I';
+  }
+};
+
+function getSpeedUnits() {
+  if (isCelciusSelected()) {
+    return 'm/s';
+  }
+  else {
+    return 'mph';
   }
 };
