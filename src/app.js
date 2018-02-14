@@ -3,9 +3,9 @@
 window.onload = () => {
   link.getLink();
   search.listenInput();
-  search.listenStar();
   history.renderFavorite();
   history.renderRecent();
+  app.listenStar();
   app.listenCity(dom.favorite);
   app.listenCity(dom.recent);
   app.listenDay();
@@ -63,6 +63,12 @@ let app = {
     history.renderRecent();
     link.changeLink(this.city);
   },
+  listenStar() {
+    dom.star.addEventListener('click', () => {
+      history.addToFavorite(this.city);
+      history.renderFavorite();
+    });
+  },
   listenDay() {
     dom.weekForecast.addEventListener('click', (e) => {
       let target = e.target;
@@ -104,12 +110,6 @@ let search = {
           app.getInput(dom.search.value);
         }
       }
-    });
-  },
-  listenStar() {
-    dom.star.addEventListener('click', () => {
-      history.addToFavorite(dom.search.value);
-      history.renderFavorite();
     });
   },
   isInputEmpty() {
