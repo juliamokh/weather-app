@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Weather App</title>
   <link rel="stylesheet" href="css/reset.css">
@@ -12,27 +11,28 @@
 </head>
 <body>
   <main class="page-content">
-    <h1 class="heading">- Weather app -</h1>
     <section class="search-bar">
-      <button type="button" id="star" class="btn-star"><i class="far fa-star"></i></button>
-      <input type="text" id="search" placeholder="Type location and press enter">
+      <button class="btn-star" id="star" type="button" ><i class="far fa-star"></i></button>
+      <input id="search" type="text" placeholder="Type location and press enter">
       <div class="icon-search"><i class="fas fa-search"></i></div>
-      <select id="unit">
-        <option selected value="GC">°C</option>
+      <select id="units">
+        <option value="GC" selected>°C</option>
         <option value="FA">°F</option>
       </select>
     </section>
-    <section id="today-forecast" class="today-forecast"></section>
-    <section id="week-forecast" class="week-forecast"></section>
+    <section class="today-forecast" id="today-forecast"></section>
+    <section class="week-forecast" id="week-forecast"></section> 
+  </main>
+  <aside class="lists">
     <section class="favorite">
-      <h2>Favorite cities</h2>
+      <h2><i class="far fa-star"></i> Favorite</h2>
       <ul id="favorite"></ul>
     </section>
     <section class="recent">
-        <h2>Recently viewed cities</h2>
-        <ul id="recent"></ul>
+      <h2><i class="fas fa-history"></i> Recently viewed</h2>
+      <ul id="recent"></ul>
     </section>
-  </main>
-  <script src="js/app.js"></script>
+  </aside>
+  <script src="app.js"></script>
 </body>
 </html>
