@@ -5,22 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Weather App</title>
-  <link rel="stylesheet" href="css/reset.css">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="src/css/reset.css">
+  <link rel="stylesheet" href="src/css/style.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
 </head>
 <body>
-  <main class="page-content">
-    <section class="search-bar">
-      <button class="btn-star" id="star" type="button" ><i class="far fa-star"></i></button>
-      <input id="search" type="text" placeholder="Type location and press enter">
-      <div class="icon-search"><i class="fas fa-search"></i></div>
-      <select id="units">
-        <option value="GC" selected>°C</option>
-        <option value="FA">°F</option>
-      </select>
-    </section>
+  <main class="page-content" id="page-content">
     <section class="today-forecast" id="today-forecast"></section>
     <section class="week-forecast" id="week-forecast"></section> 
   </main>
@@ -34,6 +25,6 @@
       <ul id="recent"></ul>
     </section>
   </aside>
-  <script src="app.js"></script>
+  <script src="index.js"></script>
 </body>
 </html>

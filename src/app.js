@@ -1,5 +1,3 @@
-'use strict'
-
 window.onload = () => {
   link.getLink();
   search.listenInput();
