@@ -20,7 +20,7 @@ html {
   color: #fff;
 }
 
-.page-content {
+#root {
   width: 640px;
   margin: 40px auto 20px auto;
 }
@@ -69,10 +69,11 @@ html {
 
 .search-bar .icon-search {
   position: absolute;
-  top: 15px;
-  right: 70px;
+  top: 0;
+  right: 55px;
+  width: 50px;
   background-color: transparent;
-  pointer-events: none;
+  cursor: pointer;
 }
 
 .search-bar select {
@@ -82,7 +83,7 @@ html {
 
 /* TODAY FORECAST */
 
-.today-forecast.active {
+.today-forecast {
   padding: 20px;
   background-color:rgba(255,255,255, .1);
   border: 1px solid transparent;
@@ -148,7 +149,7 @@ html {
 
 /* WEEK FORECAST */
 
-.week-forecast.active {
+.week-forecast {
   display: flex;
   margin-top: 20px;
   background-color:rgba(255,255,255, .1);
@@ -187,14 +188,8 @@ html {
   font-size: 14px;
 }
 
-.favorite,
-.recent {
-  display: none;
-}
-
-.favorite.active,
-.recent.active {
-  display: initial;
+.favorite-list,
+.recent-list {
   flex-basis: 320px;
   flex-grow: 1;
   padding: 10px;
@@ -203,7 +198,7 @@ html {
   border-radius: 5px;
 }
 
-.favorite.active  {
+.favorite-list  {
   margin-right: 10px;
 }
 
