@@ -1,4 +1,4 @@
-import { drawIcon } from '../utils/index';
+import { drawIcon } from '../utils/icons';
 
 export default class DayForecast {
   constructor() {
@@ -13,6 +13,7 @@ export default class DayForecast {
   }
 
   render(forecast, day) {
+    this.host.classList.add('active');
     this.host.innerHTML = `
       <div class="city">${forecast.city_name}, ${forecast.country_code}</div>
       <div class="container">

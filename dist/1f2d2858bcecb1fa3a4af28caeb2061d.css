@@ -83,7 +83,7 @@ html {
 
 /* TODAY FORECAST */
 
-.today-forecast {
+.today-forecast.active {
   padding: 20px;
   background-color:rgba(255,255,255, .1);
   border: 1px solid transparent;
@@ -149,7 +149,7 @@ html {
 
 /* WEEK FORECAST */
 
-.week-forecast {
+.week-forecast.active {
   display: flex;
   margin-top: 20px;
   background-color:rgba(255,255,255, .1);

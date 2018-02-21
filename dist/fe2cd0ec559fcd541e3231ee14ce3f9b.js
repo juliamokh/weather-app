@@ -72,12 +72,11 @@ require = (function (modules, cache, entry) {
   // Override the current require with this new one
   return newRequire;
 })({8:[function(require,module,exports) {
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.drawIcon = drawIcon;
 var events = exports.events = {
   events: {},
   subscribe: function subscribe(eventName, fn) {
@@ -101,77 +100,6 @@ var events = exports.events = {
       });
     }
   }
-};
-
-function drawIcon(code) {
-  var icon = '';
-  switch (code) {
-    case '200':
-    case '201':
-    case '202':
-    case '230':
-    case '231':
-    case '232':
-    case '233':
-      icon = 'thunder';
-      break;
-    case '300':
-    case '301':
-    case '302':
-    case '611':
-    case '612':
-      icon = 'rainy-7';
-      break;
-    case '500':
-    case '520':
-      icon = 'rainy-4';
-      break;
-    case '501':
-    case '511':
-      icon = 'rainy-5';
-      break;
-    case '502':
-    case '522':
-    case '900':
-      icon = 'rainy-6';
-      break;
-    case '521':
-      icon = 'rainy-3';
-      break;
-    case '600':
-    case '610':
-    case '621':
-      icon = 'snowy-3';
-      break;
-    case '601':
-      icon = 'snowy-5';
-      break;
-    case '602':
-    case '622':
-    case '623':
-      icon = 'snowy-6';
-      break;
-    case '700':
-    case '711':
-    case '721':
-    case '731':
-    case '741':
-    case '751':
-      icon = 'cloudy-day-1';
-      break;
-    case '800':
-      icon = 'day';
-      break;
-    case '801':
-    case '802':
-    case '803':
-      icon = 'cloudy-day-2';
-      break;
-    case '804':
-      icon = 'cloudy';
-      break;
-  };
-  return '<img src="../img/' + icon + '.svg">';
 };
 },{}],7:[function(require,module,exports) {
 'use strict';
@@ -218,7 +146,165 @@ var SearchBar = function () {
 
 exports.default = SearchBar;
 ;
-},{"../utils/index":8}],14:[function(require,module,exports) {
+},{"../utils/index":8}],18:[function(require,module,exports) {
+module.exports="/dist/64ae1bf59ee327bae07f5d4cc2d1d1dd.svg";
+},{}],19:[function(require,module,exports) {
+module.exports="/dist/80c56890884cb3ff8ffe981a991206fa.svg";
+},{}],20:[function(require,module,exports) {
+module.exports="/dist/fc47c53ecea57fd14536bc328dc0b1a1.svg";
+},{}],21:[function(require,module,exports) {
+module.exports="/dist/c7bd23dc27bf60d598b63afe7c7e63f4.svg";
+},{}],22:[function(require,module,exports) {
+module.exports="/dist/c8a36139595a522c4a595c1ca36b65b5.svg";
+},{}],23:[function(require,module,exports) {
+module.exports="/dist/833afb704f4850be0a19f31b159e0bcf.svg";
+},{}],24:[function(require,module,exports) {
+module.exports="/dist/2018820de9afb709458580b7f5042747.svg";
+},{}],25:[function(require,module,exports) {
+module.exports="/dist/8a4fc2bfc9c54229591a1af4522b19de.svg";
+},{}],27:[function(require,module,exports) {
+module.exports="/dist/e1ab257c3306ef18c8b49b6b104674ab.svg";
+},{}],26:[function(require,module,exports) {
+module.exports="/dist/f8af50e5148c36aaa1315112a1e7eb41.svg";
+},{}],28:[function(require,module,exports) {
+module.exports="/dist/e1845bc11a800a635a97d6398c175853.svg";
+},{}],29:[function(require,module,exports) {
+module.exports="/dist/740212f8c417cfdecf269d3c71f14a5c.svg";
+},{}],30:[function(require,module,exports) {
+module.exports="/dist/44381600aa94a0fb364556c2ff29f294.svg";
+},{}],17:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.drawIcon = drawIcon;
+
+var _thunder = require('../img/thunder.svg');
+
+var _thunder2 = _interopRequireDefault(_thunder);
+
+var _rainy = require('../img/rainy7.svg');
+
+var _rainy2 = _interopRequireDefault(_rainy);
+
+var _rainy3 = require('../img/rainy4.svg');
+
+var _rainy4 = _interopRequireDefault(_rainy3);
+
+var _rainy5 = require('../img/rainy5.svg');
+
+var _rainy6 = _interopRequireDefault(_rainy5);
+
+var _rainy7 = require('../img/rainy6.svg');
+
+var _rainy8 = _interopRequireDefault(_rainy7);
+
+var _rainy9 = require('../img/rainy3.svg');
+
+var _rainy10 = _interopRequireDefault(_rainy9);
+
+var _snowy = require('../img/snowy3.svg');
+
+var _snowy2 = _interopRequireDefault(_snowy);
+
+var _snowy3 = require('../img/snowy5.svg');
+
+var _snowy4 = _interopRequireDefault(_snowy3);
+
+var _snowy5 = require('../img/snowy6.svg');
+
+var _snowy6 = _interopRequireDefault(_snowy5);
+
+var _cloudyDay = require('../img/cloudyDay1.svg');
+
+var _cloudyDay2 = _interopRequireDefault(_cloudyDay);
+
+var _day = require('../img/day.svg');
+
+var _day2 = _interopRequireDefault(_day);
+
+var _cloudyDay3 = require('../img/cloudyDay2.svg');
+
+var _cloudyDay4 = _interopRequireDefault(_cloudyDay3);
+
+var _cloudy = require('../img/cloudy.svg');
+
+var _cloudy2 = _interopRequireDefault(_cloudy);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function drawIcon(code) {
+  var icon = '';
+  switch (code) {
+    case '200':
+    case '201':
+    case '202':
+    case '230':
+    case '231':
+    case '232':
+    case '233':
+      icon = _thunder2.default;
+      break;
+    case '300':
+    case '301':
+    case '302':
+    case '611':
+    case '612':
+      icon = _rainy2.default;
+      break;
+    case '500':
+    case '520':
+      icon = _rainy4.default;
+      break;
+    case '501':
+    case '511':
+      icon = _rainy6.default;
+      break;
+    case '502':
+    case '522':
+    case '900':
+      icon = _rainy8.default;
+      break;
+    case '521':
+      icon = _rainy10.default;
+      break;
+    case '600':
+    case '610':
+    case '621':
+      icon = _snowy2.default;
+      break;
+    case '601':
+      icon = _snowy4.default;
+      break;
+    case '602':
+    case '622':
+    case '623':
+      icon = _snowy6.default;
+      break;
+    case '700':
+    case '711':
+    case '721':
+    case '731':
+    case '741':
+    case '751':
+      icon = _cloudyDay2.default;
+      break;
+    case '800':
+      icon = _day2.default;
+      break;
+    case '801':
+    case '802':
+    case '803':
+      icon = _cloudyDay4.default;
+      break;
+    case '804':
+      icon = _cloudy2.default;
+      break;
+  };
+  return '<img src="' + icon + '">';
+};
+},{"../img/thunder.svg":18,"../img/rainy7.svg":19,"../img/rainy4.svg":20,"../img/rainy5.svg":21,"../img/rainy6.svg":22,"../img/rainy3.svg":23,"../img/snowy3.svg":24,"../img/snowy5.svg":25,"../img/snowy6.svg":27,"../img/cloudyDay1.svg":26,"../img/day.svg":28,"../img/cloudyDay2.svg":29,"../img/cloudy.svg":30}],14:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -227,7 +313,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _index = require('../utils/index');
+var _icons = require('../utils/icons');
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -249,7 +335,8 @@ var DayForecast = function () {
   }, {
     key: 'render',
     value: function render(forecast, day) {
-      this.host.innerHTML = '\n      <div class="city">' + forecast.city_name + ', ' + forecast.country_code + '</div>\n      <div class="container">\n        <div class="wrapper">\n          <div class="current-day">' + this.getWeekday(forecast.data[day].datetime) + '</div>\n          <time class="date">' + forecast.data[day].datetime + '</time>\n          <div class="wind">Wind ' + forecast.data[day].wind_spd + '</div>\n          <div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div>\n        </div>\n        <div class="wrapper">\n          <div>' + (0, _index.drawIcon)(forecast.data[day].weather.code) + '</div>\n          <div class="weather">' + forecast.data[day].weather.description + '</div>\n        </div>\n        <div class="wrapper">\n          <div class="temperature">\n            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '\xB0</div>\n            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ' + forecast.data[day].max_temp + '\xB0</div>\n          </div>\n          <div class="current-temperature">' + forecast.data[day].temp + '\xB0</div>\n        </div>\n      </div>\n    ';
+      this.host.classList.add('active');
+      this.host.innerHTML = '\n      <div class="city">' + forecast.city_name + ', ' + forecast.country_code + '</div>\n      <div class="container">\n        <div class="wrapper">\n          <div class="current-day">' + this.getWeekday(forecast.data[day].datetime) + '</div>\n          <time class="date">' + forecast.data[day].datetime + '</time>\n          <div class="wind">Wind ' + forecast.data[day].wind_spd + '</div>\n          <div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div>\n        </div>\n        <div class="wrapper">\n          <div>' + (0, _icons.drawIcon)(forecast.data[day].weather.code) + '</div>\n          <div class="weather">' + forecast.data[day].weather.description + '</div>\n        </div>\n        <div class="wrapper">\n          <div class="temperature">\n            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '\xB0</div>\n            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ' + forecast.data[day].max_temp + '\xB0</div>\n          </div>\n          <div class="current-temperature">' + forecast.data[day].temp + '\xB0</div>\n        </div>\n      </div>\n    ';
       return this.host;
     }
   }]);
@@ -259,7 +346,51 @@ var DayForecast = function () {
 
 exports.default = DayForecast;
 ;
-},{"../utils/index":8}],13:[function(require,module,exports) {
+},{"../utils/icons":17}],31:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _icons = require('../utils/icons');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var WeekForecast = function () {
+  function WeekForecast() {
+    _classCallCheck(this, WeekForecast);
+
+    this.host = document.createElement('div');
+    this.host.classList.add('week-forecast');
+  }
+
+  _createClass(WeekForecast, [{
+    key: 'getShortWeekday',
+    value: function getShortWeekday(datetime) {
+      var weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var date = new Date(datetime);
+      return weekday[date.getDay()];
+    }
+  }, {
+    key: 'render',
+    value: function render(forecast) {
+      this.host.classList.add('active');
+      for (var i = 0; i < 7; i++) {
+        this.host.innerHTML += '\n        <div class="day-forecast" id="' + i + '">\n          <div class="day">' + this.getShortWeekday(forecast.data[i].datetime) + '</div>\n          <div>' + (0, _icons.drawIcon)(forecast.data[i].weather.code) + '</div>\n          <div class="temperature">' + forecast.data[i].temp + '\xB0</div>\n        </div>\n      ';
+      }
+      return this.host;
+    }
+  }]);
+
+  return WeekForecast;
+}();
+
+exports.default = WeekForecast;
+;
+},{"../utils/icons":17}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -298,6 +429,10 @@ var _DayForecast = require('./DayForecast');
 
 var _DayForecast2 = _interopRequireDefault(_DayForecast);
 
+var _WeekForecast = require('./WeekForecast');
+
+var _WeekForecast2 = _interopRequireDefault(_WeekForecast);
+
 var _api = require('../utils/api');
 
 var _index = require('../utils/index');
@@ -317,6 +452,8 @@ var App = function () {
     };
     this.host = document.getElementById('root');
     this.SearchBar = new _SearchBar2.default();
+    this.DayForecast = new _DayForecast2.default();
+    this.WeekForecast = new _WeekForecast2.default();
     this.listenInput();
   }
 
@@ -340,14 +477,14 @@ var App = function () {
       (0, _api.get)(path).then(function (data) {
         _this2.state.data = data;
         console.log(_this2.state.data);
-        // this.processData();
+        _this2.processData();
       });
     }
   }, {
     key: 'processData',
     value: function processData() {
-      // forecast.renderDayForecast(this.data, 0);
-      // forecast.renderWeekForecast(this.data);
+      this.DayForecast.render(this.state.data, 0);
+      this.WeekForecast.render(this.state.data);
       // history.addToRecent(this.city);
       // history.renderRecent();
       // link.changeLink(this.city);
@@ -355,7 +492,10 @@ var App = function () {
   }, {
     key: 'render',
     value: function render() {
-      this.host.appendChild(this.SearchBar.render());
+      this.SearchBar.render();
+      this.host.appendChild(this.SearchBar.host);
+      this.host.appendChild(this.DayForecast.host);
+      this.host.appendChild(this.WeekForecast.host);
     }
   }]);
 
@@ -365,7 +505,7 @@ var App = function () {
 ;
 
 exports.default = App;
-},{"./SearchBar":7,"./DayForecast":14,"../utils/api":13,"../utils/index":8}],2:[function(require,module,exports) {
+},{"./SearchBar":7,"./DayForecast":14,"./WeekForecast":31,"../utils/api":13,"../utils/index":8}],2:[function(require,module,exports) {
 'use strict';
 
 var _App = require('./components/App');
@@ -376,7 +516,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = new _App2.default();
 app.render();
-},{"./components/App":6}],10:[function(require,module,exports) {
+},{"./components/App":6}],15:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -499,5 +639,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[10,2])
+},{}]},{},[15,2])
 //# sourceMappingURL=/dist/fe2cd0ec559fcd541e3231ee14ce3f9b.map
