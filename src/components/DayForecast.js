@@ -1,15 +1,31 @@
-import { drawIcon } from '../utils/icons';
+import drawIcon from '../utils/icons';
+import { events } from '../utils/index';
 
 export default class DayForecast {
   constructor() {
+    this.state = {
+      units: 'M'
+    };
     this.host = document.createElement('div');
     this.host.classList.add('today-forecast');
+    this.listenUnitsChange();
   }
 
   getWeekday(datetime) {
     let weekday = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     let date = new Date(datetime);
     return weekday[date.getDay()];
+  }
+
+  listenUnitsChange() {
+    events.subscribe('unitsChange', (units) => {
+      this.state.units = units;
+    })
+  }
+
+  getSpeedUnits() {
+    if (this.state.units === 'M') return 'm/s';
+    if (this.state.units === 'I') return 'mph';
   }
 
   render(forecast, day) {
@@ -20,7 +36,7 @@ export default class DayForecast {
         <div class="wrapper">
           <div class="current-day">${this.getWeekday(forecast.data[day].datetime)}</div>
           <time class="date">${forecast.data[day].datetime}</time>
-          <div class="wind">Wind ${forecast.data[day].wind_spd}</div>
+          <div class="wind">Wind ${forecast.data[day].wind_spd} ${this.getSpeedUnits()}</div>
           <div class="humidity"><i class="fas fa-tint"></i> ${forecast.data[day].rh}%</div>
         </div>
         <div class="wrapper">

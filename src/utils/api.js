@@ -3,11 +3,11 @@ const KEY = '?key=ddb43221d2a548889fb0e23b1266b34c';
 const DAYS = '&days=7';
 const BASE_PATH = `${START_POINT}${KEY}${DAYS}`;
 
-export function get(path) {
+export default function get(path) {
   return fetch(`${BASE_PATH}${path}`)
     .then(response => {
       if (!response.ok) {
-        throw Error(response.statusText);
+        throw alert(`ERROR: ${response.status}`);
       }
       return response.json();
     })

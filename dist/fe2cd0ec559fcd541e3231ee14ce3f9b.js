@@ -71,12 +71,16 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({8:[function(require,module,exports) {
+})({46:[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.addToArray = addToArray;
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
 var events = exports.events = {
   events: {},
   subscribe: function subscribe(eventName, fn) {
@@ -101,7 +105,14 @@ var events = exports.events = {
     }
   }
 };
-},{}],7:[function(require,module,exports) {
+
+function addToArray(arr, city) {
+  arr.push(city);
+  arr = [].concat(_toConsumableArray(new Set(arr)));
+  if (arr.length === 11) arr.shift();
+  return arr;
+};
+},{}],40:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -121,7 +132,11 @@ var SearchBar = function () {
     this.host = document.createElement('div');
     this.host.classList.add('search-bar-container');
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleUnitsChange = this.handleUnitsChange.bind(this);
+    this.handleStar = this.handleStar.bind(this);
     this.host.addEventListener('submit', this.handleSubmit);
+    this.host.addEventListener('change', this.handleUnitsChange);
+    this.host.addEventListener('click', this.handleStar);
   }
 
   _createClass(SearchBar, [{
@@ -134,9 +149,24 @@ var SearchBar = function () {
       }
     }
   }, {
+    key: 'handleUnitsChange',
+    value: function handleUnitsChange(ev) {
+      if (ev.target.id == 'units') {
+        var units = ev.target.value;
+        _index.events.publish('unitsChange', units);
+      }
+    }
+  }, {
+    key: 'handleStar',
+    value: function handleStar(ev) {
+      if (ev.target.id == 'star') {
+        _index.events.publish('starClick');
+      }
+    }
+  }, {
     key: 'render',
     value: function render() {
-      this.host.innerHTML = '\n      <form class="search-bar" onsubmit>\n        <button class="btn-star" id="star" type="button"><i class="far fa-star"></i></button>\n        <input name="search" type="text" placeholder="Type location and press enter" required>\n        <button class="icon-search" type="submit"><i class="fas fa-search"></i></button>\n        <select id="units">\n          <option value="GC" selected>\xB0C</option>\n          <option value="FA">\xB0F</option>\n        </select>\n      </form>\n    ';
+      this.host.innerHTML = '\n      <form class="search-bar" onsubmit>\n        <button class="btn-star" id="star" type="button"><i class="far fa-star"></i></button>\n        <input name="search" id="search" type="text" placeholder="Type location and press enter" required>\n        <button class="icon-search" type="submit"><i class="fas fa-search"></i></button>\n        <select id="units">\n          <option value="M" selected>\xB0C</option>\n          <option value="I">\xB0F</option>\n        </select>\n      </form>\n    ';
       return this.host;
     }
   }]);
@@ -146,39 +176,39 @@ var SearchBar = function () {
 
 exports.default = SearchBar;
 ;
-},{"../utils/index":8}],18:[function(require,module,exports) {
+},{"../utils/index":46}],48:[function(require,module,exports) {
 module.exports="/dist/64ae1bf59ee327bae07f5d4cc2d1d1dd.svg";
-},{}],19:[function(require,module,exports) {
+},{}],49:[function(require,module,exports) {
 module.exports="/dist/80c56890884cb3ff8ffe981a991206fa.svg";
-},{}],20:[function(require,module,exports) {
+},{}],50:[function(require,module,exports) {
 module.exports="/dist/fc47c53ecea57fd14536bc328dc0b1a1.svg";
-},{}],21:[function(require,module,exports) {
+},{}],51:[function(require,module,exports) {
 module.exports="/dist/c7bd23dc27bf60d598b63afe7c7e63f4.svg";
-},{}],22:[function(require,module,exports) {
+},{}],52:[function(require,module,exports) {
 module.exports="/dist/c8a36139595a522c4a595c1ca36b65b5.svg";
-},{}],23:[function(require,module,exports) {
+},{}],53:[function(require,module,exports) {
 module.exports="/dist/833afb704f4850be0a19f31b159e0bcf.svg";
-},{}],24:[function(require,module,exports) {
+},{}],54:[function(require,module,exports) {
 module.exports="/dist/2018820de9afb709458580b7f5042747.svg";
-},{}],25:[function(require,module,exports) {
+},{}],55:[function(require,module,exports) {
 module.exports="/dist/8a4fc2bfc9c54229591a1af4522b19de.svg";
-},{}],27:[function(require,module,exports) {
+},{}],56:[function(require,module,exports) {
 module.exports="/dist/e1ab257c3306ef18c8b49b6b104674ab.svg";
-},{}],26:[function(require,module,exports) {
+},{}],57:[function(require,module,exports) {
 module.exports="/dist/f8af50e5148c36aaa1315112a1e7eb41.svg";
-},{}],28:[function(require,module,exports) {
+},{}],58:[function(require,module,exports) {
 module.exports="/dist/e1845bc11a800a635a97d6398c175853.svg";
-},{}],29:[function(require,module,exports) {
+},{}],59:[function(require,module,exports) {
 module.exports="/dist/740212f8c417cfdecf269d3c71f14a5c.svg";
-},{}],30:[function(require,module,exports) {
+},{}],60:[function(require,module,exports) {
 module.exports="/dist/44381600aa94a0fb364556c2ff29f294.svg";
-},{}],17:[function(require,module,exports) {
+},{}],47:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.drawIcon = drawIcon;
+exports.default = drawIcon;
 
 var _thunder = require('../img/thunder.svg');
 
@@ -304,7 +334,7 @@ function drawIcon(code) {
   };
   return '<img src="' + icon + '">';
 };
-},{"../img/thunder.svg":18,"../img/rainy7.svg":19,"../img/rainy4.svg":20,"../img/rainy5.svg":21,"../img/rainy6.svg":22,"../img/rainy3.svg":23,"../img/snowy3.svg":24,"../img/snowy5.svg":25,"../img/snowy6.svg":27,"../img/cloudyDay1.svg":26,"../img/day.svg":28,"../img/cloudyDay2.svg":29,"../img/cloudy.svg":30}],14:[function(require,module,exports) {
+},{"../img/thunder.svg":48,"../img/rainy7.svg":49,"../img/rainy4.svg":50,"../img/rainy5.svg":51,"../img/rainy6.svg":52,"../img/rainy3.svg":53,"../img/snowy3.svg":54,"../img/snowy5.svg":55,"../img/snowy6.svg":56,"../img/cloudyDay1.svg":57,"../img/day.svg":58,"../img/cloudyDay2.svg":59,"../img/cloudy.svg":60}],41:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -315,14 +345,24 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _icons = require('../utils/icons');
 
+var _icons2 = _interopRequireDefault(_icons);
+
+var _index = require('../utils/index');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var DayForecast = function () {
   function DayForecast() {
     _classCallCheck(this, DayForecast);
 
+    this.state = {
+      units: 'M'
+    };
     this.host = document.createElement('div');
     this.host.classList.add('today-forecast');
+    this.listenUnitsChange();
   }
 
   _createClass(DayForecast, [{
@@ -333,10 +373,25 @@ var DayForecast = function () {
       return weekday[date.getDay()];
     }
   }, {
+    key: 'listenUnitsChange',
+    value: function listenUnitsChange() {
+      var _this = this;
+
+      _index.events.subscribe('unitsChange', function (units) {
+        _this.state.units = units;
+      });
+    }
+  }, {
+    key: 'getSpeedUnits',
+    value: function getSpeedUnits() {
+      if (this.state.units === 'M') return 'm/s';
+      if (this.state.units === 'I') return 'mph';
+    }
+  }, {
     key: 'render',
     value: function render(forecast, day) {
       this.host.classList.add('active');
-      this.host.innerHTML = '\n      <div class="city">' + forecast.city_name + ', ' + forecast.country_code + '</div>\n      <div class="container">\n        <div class="wrapper">\n          <div class="current-day">' + this.getWeekday(forecast.data[day].datetime) + '</div>\n          <time class="date">' + forecast.data[day].datetime + '</time>\n          <div class="wind">Wind ' + forecast.data[day].wind_spd + '</div>\n          <div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div>\n        </div>\n        <div class="wrapper">\n          <div>' + (0, _icons.drawIcon)(forecast.data[day].weather.code) + '</div>\n          <div class="weather">' + forecast.data[day].weather.description + '</div>\n        </div>\n        <div class="wrapper">\n          <div class="temperature">\n            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '\xB0</div>\n            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ' + forecast.data[day].max_temp + '\xB0</div>\n          </div>\n          <div class="current-temperature">' + forecast.data[day].temp + '\xB0</div>\n        </div>\n      </div>\n    ';
+      this.host.innerHTML = '\n      <div class="city">' + forecast.city_name + ', ' + forecast.country_code + '</div>\n      <div class="container">\n        <div class="wrapper">\n          <div class="current-day">' + this.getWeekday(forecast.data[day].datetime) + '</div>\n          <time class="date">' + forecast.data[day].datetime + '</time>\n          <div class="wind">Wind ' + forecast.data[day].wind_spd + ' ' + this.getSpeedUnits() + '</div>\n          <div class="humidity"><i class="fas fa-tint"></i> ' + forecast.data[day].rh + '%</div>\n        </div>\n        <div class="wrapper">\n          <div>' + (0, _icons2.default)(forecast.data[day].weather.code) + '</div>\n          <div class="weather">' + forecast.data[day].weather.description + '</div>\n        </div>\n        <div class="wrapper">\n          <div class="temperature">\n            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ' + forecast.data[day].min_temp + '\xB0</div>\n            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ' + forecast.data[day].max_temp + '\xB0</div>\n          </div>\n          <div class="current-temperature">' + forecast.data[day].temp + '\xB0</div>\n        </div>\n      </div>\n    ';
       return this.host;
     }
   }]);
@@ -346,7 +401,7 @@ var DayForecast = function () {
 
 exports.default = DayForecast;
 ;
-},{"../utils/icons":17}],31:[function(require,module,exports) {
+},{"../utils/icons":47,"../utils/index":46}],42:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -357,6 +412,12 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 var _icons = require('../utils/icons');
 
+var _icons2 = _interopRequireDefault(_icons);
+
+var _index = require('../utils/index');
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var WeekForecast = function () {
@@ -365,6 +426,8 @@ var WeekForecast = function () {
 
     this.host = document.createElement('div');
     this.host.classList.add('week-forecast');
+    this.listenDay = this.listenDay.bind(this);
+    this.host.addEventListener('click', this.listenDay);
   }
 
   _createClass(WeekForecast, [{
@@ -375,11 +438,25 @@ var WeekForecast = function () {
       return weekday[date.getDay()];
     }
   }, {
+    key: 'listenDay',
+    value: function listenDay(ev) {
+      var target = ev.target;
+      while (target != this) {
+        if (target.className == 'day-forecast') {
+          var day = target.id;
+          _index.events.publish('listenDay', day);
+          return;
+        }
+        target = target.parentNode;
+      }
+    }
+  }, {
     key: 'render',
     value: function render(forecast) {
       this.host.classList.add('active');
+      this.host.innerHTML = '';
       for (var i = 0; i < 7; i++) {
-        this.host.innerHTML += '\n        <div class="day-forecast" id="' + i + '">\n          <div class="day">' + this.getShortWeekday(forecast.data[i].datetime) + '</div>\n          <div>' + (0, _icons.drawIcon)(forecast.data[i].weather.code) + '</div>\n          <div class="temperature">' + forecast.data[i].temp + '\xB0</div>\n        </div>\n      ';
+        this.host.innerHTML += '\n        <div class="day-forecast" id="' + i + '">\n          <div class="day">' + this.getShortWeekday(forecast.data[i].datetime) + '</div>\n          <div>' + (0, _icons2.default)(forecast.data[i].weather.code) + '</div>\n          <div class="temperature">' + forecast.data[i].temp + '\xB0</div>\n        </div>\n      ';
       }
       return this.host;
     }
@@ -390,13 +467,167 @@ var WeekForecast = function () {
 
 exports.default = WeekForecast;
 ;
-},{"../utils/icons":17}],13:[function(require,module,exports) {
+},{"../utils/icons":47,"../utils/index":46}],43:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.get = get;
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _index = require('../utils/index');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var RecentCities = function () {
+  function RecentCities() {
+    _classCallCheck(this, RecentCities);
+
+    this.host = document.createElement('div');
+    this.host.classList.add('recent-list');
+    this.listenCity = this.listenCity.bind(this);
+    this.host.addEventListener('click', this.listenCity);
+    this.listenInput();
+  }
+
+  _createClass(RecentCities, [{
+    key: 'listenInput',
+    value: function listenInput() {
+      var _this = this;
+
+      _index.events.subscribe('userInput', function (input) {
+        return _this.addToRecent(input);
+      });
+    }
+  }, {
+    key: 'listenCity',
+    value: function listenCity(ev) {
+      var target = ev.target;
+      while (target != this) {
+        if (target.tagName == 'LI') {
+          var city = target.textContent;
+          _index.events.publish('listenCity', city);
+          return;
+        }
+        target = target.parentNode;
+      }
+    }
+  }, {
+    key: 'addToRecent',
+    value: function addToRecent(city) {
+      var arr = (0, _index.addToArray)(this.list, city);
+      localStorage.setItem('recentCities', JSON.stringify(arr));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      if (this.list.length) {
+        this.host.classList.add('active');
+        this.host.innerHTML = '\n        <h2><i class="fas fa-history"></i> Recently viewed</h2>\n        <ul id="recent"></ul>\n      ';
+        this.list.forEach(function (item) {
+          _this2.host.insertAdjacentHTML('beforeend', '<li>' + item + '</li>');
+        });
+      }
+    }
+  }, {
+    key: 'list',
+    get: function get() {
+      return localStorage.getItem('recentCities') ? JSON.parse(localStorage.getItem('recentCities')) : [];
+    }
+  }]);
+
+  return RecentCities;
+}();
+
+exports.default = RecentCities;
+;
+},{"../utils/index":46}],44:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _index = require('../utils/index');
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var FavoriteCities = function () {
+  function FavoriteCities() {
+    _classCallCheck(this, FavoriteCities);
+
+    this.host = document.createElement('div');
+    this.host.classList.add('favorite-list');
+    this.listenCity = this.listenCity.bind(this);
+    this.host.addEventListener('click', this.listenCity);
+    this.listenStar();
+  }
+
+  _createClass(FavoriteCities, [{
+    key: 'listenStar',
+    value: function listenStar() {
+      var _this = this;
+
+      _index.events.subscribe('addToFavorite', function (city) {
+        return _this.addToFavorite(city);
+      });
+    }
+  }, {
+    key: 'listenCity',
+    value: function listenCity(ev) {
+      var target = ev.target;
+      while (target != this) {
+        if (target.tagName == 'LI') {
+          var city = target.textContent;
+          _index.events.publish('listenCity', city);
+          return;
+        }
+        target = target.parentNode;
+      }
+    }
+  }, {
+    key: 'addToFavorite',
+    value: function addToFavorite(city) {
+      var arr = (0, _index.addToArray)(this.list, city);
+      localStorage.setItem('favoriteCities', JSON.stringify(arr));
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var _this2 = this;
+
+      if (this.list.length) {
+        this.host.classList.add('active');
+        this.host.innerHTML = '\n        <h2><i class="far fa-star"></i> Favorite</h2>\n        <ul id="favorite"></ul>\n      ';
+        this.list.forEach(function (item) {
+          _this2.host.insertAdjacentHTML('beforeend', '<li>' + item + '</li>');
+        });
+      }
+    }
+  }, {
+    key: 'list',
+    get: function get() {
+      return localStorage.getItem('favoriteCities') ? JSON.parse(localStorage.getItem('favoriteCities')) : [];
+    }
+  }]);
+
+  return FavoriteCities;
+}();
+
+exports.default = FavoriteCities;
+;
+},{"../utils/index":46}],45:[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = get;
 var START_POINT = 'https://api.weatherbit.io/v2.0/forecast/daily';
 var KEY = '?key=ddb43221d2a548889fb0e23b1266b34c';
 var DAYS = '&days=7';
@@ -405,14 +636,14 @@ var BASE_PATH = '' + START_POINT + KEY + DAYS;
 function get(path) {
   return fetch('' + BASE_PATH + path).then(function (response) {
     if (!response.ok) {
-      throw Error(response.statusText);
+      throw alert('ERROR: ' + response.status);
     }
     return response.json();
   }).catch(function (err) {
     return console.log(err);
   });
 };
-},{}],6:[function(require,module,exports) {
+},{}],38:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -433,13 +664,25 @@ var _WeekForecast = require('./WeekForecast');
 
 var _WeekForecast2 = _interopRequireDefault(_WeekForecast);
 
+var _RecentCities = require('./RecentCities');
+
+var _RecentCities2 = _interopRequireDefault(_RecentCities);
+
+var _FavoriteCities = require('./FavoriteCities');
+
+var _FavoriteCities2 = _interopRequireDefault(_FavoriteCities);
+
 var _api = require('../utils/api');
+
+var _api2 = _interopRequireDefault(_api);
 
 var _index = require('../utils/index');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+// import { responseExample } from '../utils/responseExample';
 
 var App = function () {
   function App() {
@@ -450,11 +693,20 @@ var App = function () {
       units: 'M',
       data: {}
     };
-    this.host = document.getElementById('root');
+    this.main = document.querySelector('main');
+    this.aside = document.querySelector('aside');
     this.SearchBar = new _SearchBar2.default();
     this.DayForecast = new _DayForecast2.default();
     this.WeekForecast = new _WeekForecast2.default();
+    this.RecentCities = new _RecentCities2.default();
+    this.FavoriteCities = new _FavoriteCities2.default();
+    this.getLink();
+    this.popLink();
     this.listenInput();
+    this.listenUnitsChange();
+    this.listenStar();
+    this.listenDay();
+    this.listenCity();
   }
 
   _createClass(App, [{
@@ -469,15 +721,86 @@ var App = function () {
       });
     }
   }, {
-    key: 'getForecast',
-    value: function getForecast() {
+    key: 'listenUnitsChange',
+    value: function listenUnitsChange() {
       var _this2 = this;
 
+      _index.events.subscribe('unitsChange', function (units) {
+        _this2.state.units = units;
+        console.log(_this2.state.units);
+      });
+    }
+  }, {
+    key: 'listenStar',
+    value: function listenStar() {
+      var _this3 = this;
+
+      _index.events.subscribe('starClick', function () {
+        if (_this3.state.city.length) {
+          _index.events.publish('addToFavorite', _this3.state.city);
+          _this3.FavoriteCities.render();
+        }
+      });
+    }
+  }, {
+    key: 'listenDay',
+    value: function listenDay() {
+      var _this4 = this;
+
+      _index.events.subscribe('listenDay', function (day) {
+        _this4.DayForecast.render(_this4.state.data, day);
+      });
+    }
+  }, {
+    key: 'listenCity',
+    value: function listenCity() {
+      var _this5 = this;
+
+      _index.events.subscribe('listenCity', function (city) {
+        _this5.state.city = city;
+        _this5.getForecast();
+      });
+    }
+  }, {
+    key: 'changeLink',
+    value: function changeLink(city) {
+      window.history.pushState(city, null, '?' + city);
+    }
+  }, {
+    key: 'popLink',
+    value: function popLink() {
+      var _this6 = this;
+
+      window.addEventListener('popstate', function (ev) {
+        if (ev.state !== null) {
+          _this6.listenLink(ev.state);
+        }
+      });
+    }
+  }, {
+    key: 'getLink',
+    value: function getLink() {
+      var search = window.location.search.substring(1);
+      if (search.length) {
+        this.listenLink(search);
+      }
+    }
+  }, {
+    key: 'listenLink',
+    value: function listenLink(city) {
+      this.state.city = city;
+      this.getForecast();
+    }
+  }, {
+    key: 'getForecast',
+    value: function getForecast() {
+      var _this7 = this;
+
       var path = '&units=' + this.state.units + '&city=' + this.state.city;
-      (0, _api.get)(path).then(function (data) {
-        _this2.state.data = data;
-        console.log(_this2.state.data);
-        _this2.processData();
+      (0, _api2.default)(path).then(function (data) {
+        _this7.state.data = data;
+        console.log(_this7.state.data);
+        _this7.processData();
       });
     }
   }, {
@@ -485,17 +808,20 @@ var App = function () {
     value: function processData() {
       this.DayForecast.render(this.state.data, 0);
       this.WeekForecast.render(this.state.data);
-      // history.addToRecent(this.city);
-      // history.renderRecent();
-      // link.changeLink(this.city);
+      this.RecentCities.render();
+      this.changeLink(this.state.city);
     }
   }, {
     key: 'render',
     value: function render() {
       this.SearchBar.render();
-      this.host.appendChild(this.SearchBar.host);
-      this.host.appendChild(this.DayForecast.host);
-      this.host.appendChild(this.WeekForecast.host);
+      this.FavoriteCities.render();
+      this.RecentCities.render();
+      this.main.appendChild(this.SearchBar.host);
+      this.main.appendChild(this.DayForecast.host);
+      this.main.appendChild(this.WeekForecast.host);
+      this.aside.appendChild(this.FavoriteCities.host);
+      this.aside.appendChild(this.RecentCities.host);
     }
   }]);
 
@@ -505,7 +831,7 @@ var App = function () {
 ;
 
 exports.default = App;
-},{"./SearchBar":7,"./DayForecast":14,"./WeekForecast":31,"../utils/api":13,"../utils/index":8}],2:[function(require,module,exports) {
+},{"./SearchBar":40,"./DayForecast":41,"./WeekForecast":42,"./RecentCities":43,"./FavoriteCities":44,"../utils/api":45,"../utils/index":46}],36:[function(require,module,exports) {
 'use strict';
 
 var _App = require('./components/App');
@@ -516,7 +842,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = new _App2.default();
 app.render();
-},{"./components/App":6}],15:[function(require,module,exports) {
+},{"./components/App":38}],61:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -538,7 +864,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60429' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '49212' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -639,5 +965,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[15,2])
+},{}]},{},[61,36])
 //# sourceMappingURL=/dist/fe2cd0ec559fcd541e3231ee14ce3f9b.map

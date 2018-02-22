@@ -20,3 +20,10 @@ export const events = {
     }
   }
 };
+
+export function addToArray(arr, city) {
+  arr.push(city);
+  arr = [...new Set(arr)];
+  if (arr.length === 11) arr.shift();
+  return arr;
+};

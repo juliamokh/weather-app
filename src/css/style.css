@@ -20,7 +20,7 @@ html {
   color: #fff;
 }
 
-#root {
+.page-content {
   width: 640px;
   margin: 40px auto 20px auto;
 }
@@ -188,8 +188,8 @@ html {
   font-size: 14px;
 }
 
-.favorite-list,
-.recent-list {
+.favorite-list.active,
+.recent-list.active {
   flex-basis: 320px;
   flex-grow: 1;
   padding: 10px;
@@ -198,7 +198,7 @@ html {
   border-radius: 5px;
 }
 
-.favorite-list  {
+.favorite-list.active  {
   margin-right: 10px;
 }
 
