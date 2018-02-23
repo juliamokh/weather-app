@@ -2,20 +2,22 @@
   "name": "weather-app",
   "version": "1.0.0",
   "description": "[demo](https://juliamokh.github.io/weather-app/)",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
     "start": "parcel ./src/index.html",
-    "push-gh-pages": "push-dir --dir=dist --branch=gh-pages"
+    "prebuild-dev": "node node.prebuild.js",
+    "build-dev": "parcel build ./src/index.html --no-minify --public-url ./",
+    "prebuild": "node node.prebuild.js",
+    "build": "parcel build ./src/index.html --public-url ./"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/juliamokh/weather-app.git"
   },
-  "keywords": [],
   "author": "juliamokh",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/juliamokh/weather-app/issues"
-  },
-  "homepage": "https://github.com/juliamokh/weather-app#readme"
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
 }
