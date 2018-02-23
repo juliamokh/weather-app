@@ -71,7 +71,7 @@ require = (function (modules, cache, entry) {
 
   // Override the current require with this new one
   return newRequire;
-})({13:[function(require,module,exports) {
+})({14:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -161,7 +161,7 @@ var ButtonStar = function () {
 
 exports.default = ButtonStar;
 ;
-},{"../utils/index":13}],17:[function(require,module,exports) {
+},{"../utils/index":14}],15:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -220,7 +220,7 @@ var InputField = function () {
 
 exports.default = InputField;
 ;
-},{"../utils/index":13}],38:[function(require,module,exports) {
+},{"../utils/index":14}],17:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -265,7 +265,7 @@ var SelectUnits = function () {
 
 exports.default = SelectUnits;
 ;
-},{"../utils/index":13}],7:[function(require,module,exports) {
+},{"../utils/index":14}],8:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -330,33 +330,33 @@ var SearchBar = function () {
 
 exports.default = SearchBar;
 ;
-},{"./ButtonStar":16,"./InputField":17,"./SelectUnits":38,"../utils/index":13}],20:[function(require,module,exports) {
+},{"./ButtonStar":16,"./InputField":15,"./SelectUnits":17,"../utils/index":14}],19:[function(require,module,exports) {
 module.exports="/dist/64ae1bf59ee327bae07f5d4cc2d1d1dd.svg";
-},{}],21:[function(require,module,exports) {
+},{}],20:[function(require,module,exports) {
 module.exports="/dist/80c56890884cb3ff8ffe981a991206fa.svg";
-},{}],22:[function(require,module,exports) {
+},{}],21:[function(require,module,exports) {
 module.exports="/dist/fc47c53ecea57fd14536bc328dc0b1a1.svg";
-},{}],23:[function(require,module,exports) {
+},{}],22:[function(require,module,exports) {
 module.exports="/dist/c7bd23dc27bf60d598b63afe7c7e63f4.svg";
-},{}],24:[function(require,module,exports) {
+},{}],23:[function(require,module,exports) {
 module.exports="/dist/c8a36139595a522c4a595c1ca36b65b5.svg";
-},{}],25:[function(require,module,exports) {
+},{}],24:[function(require,module,exports) {
 module.exports="/dist/833afb704f4850be0a19f31b159e0bcf.svg";
-},{}],26:[function(require,module,exports) {
+},{}],25:[function(require,module,exports) {
 module.exports="/dist/2018820de9afb709458580b7f5042747.svg";
-},{}],27:[function(require,module,exports) {
+},{}],26:[function(require,module,exports) {
 module.exports="/dist/8a4fc2bfc9c54229591a1af4522b19de.svg";
-},{}],28:[function(require,module,exports) {
+},{}],27:[function(require,module,exports) {
 module.exports="/dist/e1ab257c3306ef18c8b49b6b104674ab.svg";
-},{}],29:[function(require,module,exports) {
+},{}],28:[function(require,module,exports) {
 module.exports="/dist/f8af50e5148c36aaa1315112a1e7eb41.svg";
-},{}],30:[function(require,module,exports) {
+},{}],29:[function(require,module,exports) {
 module.exports="/dist/e1845bc11a800a635a97d6398c175853.svg";
-},{}],31:[function(require,module,exports) {
+},{}],30:[function(require,module,exports) {
 module.exports="/dist/740212f8c417cfdecf269d3c71f14a5c.svg";
-},{}],32:[function(require,module,exports) {
+},{}],31:[function(require,module,exports) {
 module.exports="/dist/44381600aa94a0fb364556c2ff29f294.svg";
-},{}],15:[function(require,module,exports) {
+},{}],18:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -488,7 +488,7 @@ var drawIcon = exports.drawIcon = function drawIcon(code) {
   };
   return '<img src="' + icon + '">';
 };
-},{"../img/thunder.svg":20,"../img/rainy7.svg":21,"../img/rainy4.svg":22,"../img/rainy5.svg":23,"../img/rainy6.svg":24,"../img/rainy3.svg":25,"../img/snowy3.svg":26,"../img/snowy5.svg":27,"../img/snowy6.svg":28,"../img/cloudyDay1.svg":29,"../img/day.svg":30,"../img/cloudyDay2.svg":31,"../img/cloudy.svg":32}],8:[function(require,module,exports) {
+},{"../img/thunder.svg":19,"../img/rainy7.svg":20,"../img/rainy4.svg":21,"../img/rainy5.svg":22,"../img/rainy6.svg":23,"../img/rainy3.svg":24,"../img/snowy3.svg":25,"../img/snowy5.svg":26,"../img/snowy6.svg":27,"../img/cloudyDay1.svg":28,"../img/day.svg":29,"../img/cloudyDay2.svg":30,"../img/cloudy.svg":31}],10:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -538,7 +538,7 @@ var DayForecast = function () {
 
 exports.default = DayForecast;
 ;
-},{"../utils/icons":15}],9:[function(require,module,exports) {
+},{"../utils/icons":18}],9:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -601,7 +601,7 @@ var WeekForecast = function () {
 
 exports.default = WeekForecast;
 ;
-},{"../utils/icons":15,"../utils/index":13}],11:[function(require,module,exports) {
+},{"../utils/icons":18,"../utils/index":14}],11:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -679,7 +679,7 @@ var RecentCities = function () {
 
 exports.default = RecentCities;
 ;
-},{"../utils/index":13}],10:[function(require,module,exports) {
+},{"../utils/index":14}],12:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -757,7 +757,7 @@ var FavoriteCities = function () {
 
 exports.default = FavoriteCities;
 ;
-},{"../utils/index":13}],12:[function(require,module,exports) {
+},{"../utils/index":14}],13:[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -987,7 +987,7 @@ var App = function () {
 
 exports.default = App;
 ;
-},{"./SearchBar":7,"./DayForecast":8,"./WeekForecast":9,"./RecentCities":11,"./FavoriteCities":10,"../utils/api":12,"../utils/index":13}],2:[function(require,module,exports) {
+},{"./SearchBar":8,"./DayForecast":10,"./WeekForecast":9,"./RecentCities":11,"./FavoriteCities":12,"../utils/api":13,"../utils/index":14}],2:[function(require,module,exports) {
 'use strict';
 
 var _App = require('./components/App');
@@ -998,7 +998,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var app = new _App2.default();
 app.render();
-},{"./components/App":6}],39:[function(require,module,exports) {
+},{"./components/App":6}],32:[function(require,module,exports) {
 
 var global = (1, eval)('this');
 var OldModule = module.bundle.Module;
@@ -1020,7 +1020,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51154' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '51612' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
@@ -1121,5 +1121,5 @@ function hmrAccept(bundle, id) {
     return hmrAccept(global.require, id);
   });
 }
-},{}]},{},[39,2])
+},{}]},{},[32,2])
 //# sourceMappingURL=/dist/fe2cd0ec559fcd541e3231ee14ce3f9b.map
