@@ -6,7 +6,7 @@ export const events = {
   },
   unsubscribe(eventName, fn) {
     if (this.events[eventName]) {
-      for (var i = 0; i < this.events[eventName].length; i++) {
+      for (let i = 0; i < this.events[eventName].length; i++) {
         if (this.events[eventName][i] === fn) {
           this.events[eventName].splice(i, 1);
           break;
@@ -21,9 +21,16 @@ export const events = {
   }
 };
 
-export function addToArray(arr, city) {
-  arr.push(city);
-  arr = [...new Set(arr)];
+export function addToArray(list, location) {
+  let arr = list;
+  arr.push(location);
+  arr = removeDuplicates(arr, 'city');
   if (arr.length === 11) arr.shift();
   return arr;
+};
+
+function removeDuplicates(myArr, prop) {
+  return myArr.filter((obj, pos, arr) => {
+      return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
+  });
 };

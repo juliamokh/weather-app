@@ -1,14 +1,9 @@
-import drawIcon from '../utils/icons';
-import { events } from '../utils/index';
+import { drawIcon } from '../utils/icons';
 
 export default class DayForecast {
   constructor() {
-    this.state = {
-      units: 'M'
-    };
     this.host = document.createElement('div');
     this.host.classList.add('today-forecast');
-    this.listenUnitsChange();
   }
 
   getWeekday(datetime) {
@@ -17,18 +12,12 @@ export default class DayForecast {
     return weekday[date.getDay()];
   }
 
-  listenUnitsChange() {
-    events.subscribe('unitsChange', (units) => {
-      this.state.units = units;
-    })
+  getSpeedUnits(units) {
+    if (units === 'M') return 'm/s';
+    if (units === 'I') return 'mph';
   }
 
-  getSpeedUnits() {
-    if (this.state.units === 'M') return 'm/s';
-    if (this.state.units === 'I') return 'mph';
-  }
-
-  render(forecast, day) {
+  render(forecast, units, day = 0) {
     this.host.classList.add('active');
     this.host.innerHTML = `
       <div class="city">${forecast.city_name}, ${forecast.country_code}</div>
@@ -36,7 +25,7 @@ export default class DayForecast {
         <div class="wrapper">
           <div class="current-day">${this.getWeekday(forecast.data[day].datetime)}</div>
           <time class="date">${forecast.data[day].datetime}</time>
-          <div class="wind">Wind ${forecast.data[day].wind_spd} ${this.getSpeedUnits()}</div>
+          <div class="wind">Wind ${forecast.data[day].wind_spd} ${this.getSpeedUnits(units)}</div>
           <div class="humidity"><i class="fas fa-tint"></i> ${forecast.data[day].rh}%</div>
         </div>
         <div class="wrapper">

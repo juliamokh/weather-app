@@ -5,33 +5,34 @@ export default class FavoriteCities {
   constructor() {
     this.host = document.createElement('div');
     this.host.classList.add('favorite-list');
-    this.listenCity = this.listenCity.bind(this);
-    this.host.addEventListener('click', this.listenCity);
-    this.listenStar();
+    
+    this.handleCityClick = this.handleCityClick.bind(this);
+    this.host.addEventListener('click', this.handleCityClick);
+    this.listenFavorite();
   }
 
   get list() {
     return localStorage.getItem('favoriteCities') ? JSON.parse(localStorage.getItem('favoriteCities')) : [];
   }
   
-  listenStar() {
-    events.subscribe('addToFavorite', (city) => this.addToFavorite(city));
+  listenFavorite() {
+    events.subscribe('favorite', location => this.addToFavorite(location));
   }
 
-  listenCity(ev) {
+  handleCityClick(ev) {
     let target = ev.target;
     while (target != this) {
       if (target.tagName == 'LI') {
-        const city = target.textContent;
-        events.publish('listenCity', city);
+        const location = this.list[target.id];
+        events.publish('cityClick', location);
         return;
-      }
+      };
       target = target.parentNode;
     }
   }
 
-  addToFavorite(city) {
-    let arr = addToArray(this.list, city);
+  addToFavorite(location) {
+    let arr = addToArray(this.list, location);
     localStorage.setItem('favoriteCities', JSON.stringify(arr));
   }
 
@@ -42,8 +43,8 @@ export default class FavoriteCities {
         <h2><i class="far fa-star"></i> Favorite</h2>
         <ul id="favorite"></ul>
       `;
-      this.list.forEach((item) => {
-        this.host.insertAdjacentHTML('beforeend', `<li>${item}</li>`);   
+      this.list.forEach((location, index) => {
+        this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);  
       });    
     }
   }

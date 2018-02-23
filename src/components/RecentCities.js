@@ -5,33 +5,34 @@ export default class RecentCities {
   constructor() {
     this.host = document.createElement('div');
     this.host.classList.add('recent-list');
-    this.listenCity = this.listenCity.bind(this);
-    this.host.addEventListener('click', this.listenCity);
-    this.listenInput()
+
+    this.handleCityClick = this.handleCityClick.bind(this);
+    this.host.addEventListener('click', this.handleCityClick);
+    this.listenRecent();
   }
 
   get list() {
     return localStorage.getItem('recentCities') ? JSON.parse(localStorage.getItem('recentCities')) : [];
   }
   
-  listenInput() {
-    events.subscribe('userInput', (input) => this.addToRecent(input));
+  listenRecent() {
+    events.subscribe('recent', location => this.addToRecent(location));
   }
 
-  listenCity(ev) {
+  handleCityClick(ev) {
     let target = ev.target;
     while (target != this) {
       if (target.tagName == 'LI') {
-        const city = target.textContent;
-        events.publish('listenCity', city);
+        const location = this.list[target.id];
+        events.publish('cityClick', location);
         return;
-      }
+      };
       target = target.parentNode;
     }
   }
 
-  addToRecent(city) {
-    let arr = addToArray(this.list, city);
+  addToRecent(location) {
+    let arr = addToArray(this.list, location);
     localStorage.setItem('recentCities', JSON.stringify(arr));
   }
 
@@ -42,8 +43,8 @@ export default class RecentCities {
         <h2><i class="fas fa-history"></i> Recently viewed</h2>
         <ul id="recent"></ul>
       `;
-      this.list.forEach((item) => {
-        this.host.insertAdjacentHTML('beforeend', `<li>${item}</li>`);   
+      this.list.forEach((location, index) => {
+        this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);   
       });    
     }
   }

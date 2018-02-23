@@ -12,7 +12,7 @@ import day from '../img/day.svg';
 import cloudyDay2 from '../img/cloudyDay2.svg';
 import cloudy from '../img/cloudy.svg';
 
-export default function drawIcon(code) {
+export const drawIcon = code => {
   let icon = '';
   switch(code) {
     case '200':

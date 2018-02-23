@@ -72,8 +72,12 @@ html {
   top: 0;
   right: 55px;
   width: 50px;
+  display: inline-block;
+  line-height: 50px;
+  text-align: center;
+  vertical-align: middle;
   background-color: transparent;
-  cursor: pointer;
+  pointer-events: none;
 }
 
 .search-bar select {

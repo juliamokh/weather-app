@@ -1,10 +1,11 @@
-import drawIcon from '../utils/icons';
+import { drawIcon } from '../utils/icons';
 import { events } from '../utils/index';
 
 export default class WeekForecast {
   constructor() {
     this.host = document.createElement('div');
     this.host.classList.add('week-forecast');
+    
     this.listenDay = this.listenDay.bind(this);
     this.host.addEventListener('click', this.listenDay);
   }
@@ -20,7 +21,7 @@ export default class WeekForecast {
     while (target != this) {
       if (target.className == 'day-forecast') {
         const day = target.id;
-        events.publish('listenDay', day);
+        events.publish('dayClick', day);
         return;
       }
       target = target.parentNode;
