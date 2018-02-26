@@ -36,7 +36,7 @@ export default class WeekForecast {
         <div class="day-forecast" id="${i}">
           <div class="day">${this.getShortWeekday(forecast.data[i].datetime)}</div>
           <div>${drawIcon(forecast.data[i].weather.code)}</div>
-          <div class="temperature">${forecast.data[i].temp}°</div>
+          <div class="temperature">${Math.round(forecast.data[i].temp)}°</div>
         </div>
       `;
     }

@@ -34,10 +34,10 @@ export default class DayForecast {
         </div>
         <div class="wrapper">
           <div class="temperature">
-            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ${forecast.data[day].min_temp}°</div>
-            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ${forecast.data[day].max_temp}°</div>
+            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ${Math.round(forecast.data[day].min_temp)}°</div>
+            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ${Math.round(forecast.data[day].max_temp)}°</div>
           </div>
-          <div class="current-temperature">${forecast.data[day].temp}°</div>
+          <div class="current-temperature">${Math.round(forecast.data[day].temp)}°</div>
         </div>
       </div>
     `;
