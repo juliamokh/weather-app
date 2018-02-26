@@ -4,10 +4,11 @@ import SelectUnits from './SelectUnits';
 
 import { events } from '../utils/index';
 
-export default class SearchBar {
-  constructor() {
+class SearchBar {
+  constructor(props) {
     this.host = document.createElement('form');
     this.host.classList.add('search-bar');
+
     this.icon = document.createElement('div');
     this.icon.classList.add('icon-search'); 
     
@@ -31,3 +32,5 @@ export default class SearchBar {
     return this.host;
   }
 };
+
+export default SearchBar;

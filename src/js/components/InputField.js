@@ -1,7 +1,10 @@
 import { events } from '../utils/index';
+import { initAutocomplete } from '../utils/index';
 
 export default class InputField {
   constructor() {
+    this.props = {};
+
     this.host = document.createElement('input');
     this.host.name = 'search';
     this.host.type = 'text';
@@ -9,26 +12,13 @@ export default class InputField {
     this.host.setAttribute('required', '');
     this.host.setAttribute('autofocus', '');
     
-    this.initAutocomplete();
+    this.handlePlaceChange = this.handlePlaceChange.bind(this);
+    initAutocomplete(this.host, this.handlePlaceChange);
   }
 
-  initAutocomplete() {
-    const autocomplete = new google.maps.places.Autocomplete(this.host, { types: ['geocode'] });
-    autocomplete.addListener('place_changed', this.onPlaceChanged);
-  };
-  
-  onPlaceChanged() {
-    const place = this.getPlace();
-    console.log(place);
-    if (!place.geometry) return;
-    else {
-      const location = {
-        city: place.name,
-        lat: place.geometry.location.lat(),
-        lon: place.geometry.location.lng()
-      };
-      events.publish('userInput', location);
-    }
+  handlePlaceChange(location) {
+    // this.props.onChange(location);
+    console.log(location);
   }
 
   render() {

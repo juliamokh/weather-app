@@ -21,6 +21,24 @@ export const events = {
   }
 };
 
+export function initAutocomplete(input, callback) {
+  const autocomplete = new google.maps.places.Autocomplete(input, { types: ['(cities)'] });
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    if (!place.geometry) {
+      throw new Error('Location not found');
+    }
+    else {
+      const location = {
+        city: place.name,
+        lat: place.geometry.location.lat(),
+        lon: place.geometry.location.lng()
+      };
+      callback(location);
+    }
+  });
+};
+
 export function addToArray(list, location) {
   let arr = list;
   arr.push(location);
