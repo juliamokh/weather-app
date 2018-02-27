@@ -1,30 +1,38 @@
 import { events } from '../utils/index';
 import { addToArray } from '../utils/index';
+import { bindAll } from '../utils/index';
 
 export default class FavoriteCities {
   constructor() {
+    this.props = {};
+
     this.host = document.createElement('div');
     this.host.classList.add('favorite-list');
-    
-    this.handleCityClick = this.handleCityClick.bind(this);
+
+    bindAll(this, 'handleCityClick');
     this.host.addEventListener('click', this.handleCityClick);
-    this.listenFavorite();
+    // this.listenFavorite();
   }
 
   get list() {
     return localStorage.getItem('favoriteCities') ? JSON.parse(localStorage.getItem('favoriteCities')) : [];
   }
-  
-  listenFavorite() {
-    events.subscribe('favorite', location => this.addToFavorite(location));
+
+  update(nextProps) {
+    this.props = nextProps;
+    return this.render();
   }
+  
+  // listenFavorite() {
+  //   events.subscribe('favorite', location => this.addToFavorite(location));
+  // }
 
   handleCityClick(ev) {
     let target = ev.target;
     while (target != this) {
       if (target.tagName == 'LI') {
         const location = this.list[target.id];
-        events.publish('cityClick', location);
+        this.props.onCityClick(location);
         return;
       };
       target = target.parentNode;
@@ -34,6 +42,7 @@ export default class FavoriteCities {
   addToFavorite(location) {
     let arr = addToArray(this.list, location);
     localStorage.setItem('favoriteCities', JSON.stringify(arr));
+    this.render();
   }
 
   render() {
@@ -47,5 +56,6 @@ export default class FavoriteCities {
         this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);  
       });    
     }
+    return this.host;
   }
 };

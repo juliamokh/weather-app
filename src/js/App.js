@@ -6,13 +6,14 @@ import FavoriteCities from './components/FavoriteCities';
 
 import { get } from './utils/api';
 import { events } from './utils/index';
+import { bindAll } from './utils/index';
 
-export default class App {
-  constructor() {
+class App {
+  constructor(props) {
+    this.props = props || {};
     this.state = {
-      city: '',
-      lat: '',
-      lon: '',
+      city: this.getCityFromLink() || '',
+      location: {},
       units: 'M',
       data: {},
     };
@@ -24,20 +25,39 @@ export default class App {
     this.WeekForecast = new WeekForecast;
     this.RecentCities = new RecentCities;
     this.FavoriteCities = new FavoriteCities;
+
+    bindAll(this, 'listenUserInput', 'listenUnitsChange', 'listenStarClick', 'listenDayClick', 'listenCityClick');
     
-    this.getCityFromLink();
+    // this.getCityFromLink();
     this.popLink();
-    this.listenUserInput();
-    this.listenUnitsChange();
-    this.listenStarClick();
-    this.listenDayClick();
-    this.listenCityClick();
+    // this.listenUserInput();
+    // this.listenUnitsChange();
+    // this.listenStarClick();
+    // this.listenDayClick();
+    // this.listenCityClick();
   }
 
+  updateState(nextState) {
+    this.state = Object.assign({}, this.state, nextState);
+    this.render();
+  }
+
+  update(nextProps) {
+    this.props = nextProps;
+    return this.render();
+  }
+
+  // getCityFromLink() {
+  //   let city = window.location.search.substring(1);
+  //   if (city.length) {
+  //     this.getCityForecast(city);
+  //   }
+  // }
+
   getCityFromLink() {
-    let city = window.location.search.substring(1);
+    let city = window.location.search.substring(6);
     if (city.length) {
-      this.getCityForecast(city);
+      return city;
     }
   }
 
@@ -49,48 +69,29 @@ export default class App {
     });
   }
 
-  listenUserInput() {
-    events.subscribe('userInput', location => {
-      this.state.lat = location.lat;
-      this.state.lon = location.lon;
-      this.getGeoForecast();
-    })
+  listenUserInput(location) {
+    this.state.location = location;
+    this.getGeoForecast();
   }
 
-  listenUnitsChange() {
-    events.subscribe('unitsChange', units => {
-      this.state.units = units;
-    })
+  listenUnitsChange(units) {
+    this.state.units = units;
+    this.DayForecast.render(this.state.data, this.state.units);
+    this.WeekForecast.render(this.state.data, this.state.units);
   }
 
   listenStarClick() {
-    events.subscribe('starClick', () => {
-      if (this.state.city.length) {
-        events.publish('favorite', {
-          city: this.state.city, 
-          lat: this.state.lat, 
-          lon: this.state.lon
-        });
-        this.FavoriteCities.render();
-      }
-    });
+    this.FavoriteCities.addToFavorite(this.state.location);
+    // this.FavoriteCities.update(this.state.location);
   }
 
-  listenDayClick() {
-    events.subscribe('dayClick', day => {
-      this.DayForecast.render(this.state.data, this.state.units, day);
-    })
+  listenDayClick(day) {
+    this.DayForecast.render(this.state.data, this.state.units, day);
   }
 
-  listenCityClick() {
-    events.subscribe('cityClick', location => {
-      if (location.lat.length && location.lon.length) {
-        this.getGeoForecast(location.lat, location.lon);
-      } 
-      else {
-        this.getCityForecast(location.city);
-      }
-    })
+  listenCityClick(location) {
+    this.state.location = location;
+    this.getGeoForecast();
   }
 
   getCityForecast(city = this.state.city) {
@@ -98,7 +99,7 @@ export default class App {
     this.getForecast(search);
   }
 
-  getGeoForecast(lat = this.state.lat, lon = this.state.lon) {
+  getGeoForecast(lat = this.state.location.lat, lon = this.state.location.lon) {
     const search = `&lat=${lat}&lon=${lon}`;
     this.getForecast(search);
   }
@@ -108,35 +109,47 @@ export default class App {
     get(path)
       .then(data => {
         this.state.data = data;
-        this.state.city = data.city_name;
         this.processData();
       })
   }
 
   processData() {
-    this.changeLink(this.state.city);
+    this.changeLink(this.state.location);
+    this.SearchBar.update({ city: this.state.location.city });
     this.DayForecast.render(this.state.data, this.state.units);
-    this.WeekForecast.render(this.state.data);
-    events.publish('recent', {
-      city: this.state.city, 
-      lat: this.state.lat, 
-      lon: this.state.lon
-    });
-    this.RecentCities.render();
+    this.WeekForecast.render(this.state.data, this.state.units);
+    this.RecentCities.addToRecent(this.state.location);
   }
 
-  changeLink(city) {
-    window.history.pushState(city, null, `?${city}`);
+  changeLink(location) {
+    window.history.pushState(location, null, `?city=${location.city}`);
   }
 
   render() {
-    this.SearchBar.render();
-    this.FavoriteCities.render();
-    this.RecentCities.render();
-    this.main.appendChild(this.SearchBar.host);
+    this.main.innerHTML = '';
+    this.aside.innerHTML = '';
+
+    const { city } = this.state;
+
+    this.main.appendChild(this.SearchBar.update({ 
+        city,
+        onSubmit: this.listenUserInput,
+        onUnitsChange: this.listenUnitsChange,
+        onStarClick: this.listenStarClick
+      }));
     this.main.appendChild(this.DayForecast.host);
-    this.main.appendChild(this.WeekForecast.host);
-    this.aside.appendChild(this.FavoriteCities.host);
-    this.aside.appendChild(this.RecentCities.host);
+    this.main.appendChild(this.WeekForecast.update(
+      { onDayClick: this.listenDayClick },
+      this.state.data,
+      this.state.units
+    ));
+    this.aside.appendChild(this.FavoriteCities.update({
+      onCityClick: this.listenCityClick
+    }));
+    this.aside.appendChild(this.RecentCities.update({
+      onCityClick: this.listenCityClick
+    }));
   }
 };
+
+export default App;

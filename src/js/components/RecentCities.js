@@ -1,30 +1,37 @@
 import { events } from '../utils/index';
 import { addToArray } from '../utils/index';
+import { bindAll } from '../utils/index';
 
 export default class RecentCities {
   constructor() {
     this.host = document.createElement('div');
     this.host.classList.add('recent-list');
 
-    this.handleCityClick = this.handleCityClick.bind(this);
+    bindAll(this, 'handleCityClick');
     this.host.addEventListener('click', this.handleCityClick);
-    this.listenRecent();
+    // this.listenRecent();
   }
 
   get list() {
     return localStorage.getItem('recentCities') ? JSON.parse(localStorage.getItem('recentCities')) : [];
   }
-  
-  listenRecent() {
-    events.subscribe('recent', location => this.addToRecent(location));
+
+  update(nextProps) {
+    this.props = nextProps;
+    return this.render();
   }
+  
+  // listenRecent() {
+  //   events.subscribe('recent', location => this.addToRecent(location));
+  // }
 
   handleCityClick(ev) {
     let target = ev.target;
     while (target != this) {
       if (target.tagName == 'LI') {
         const location = this.list[target.id];
-        events.publish('cityClick', location);
+        console.log(location);
+        this.props.onCityClick(location);
         return;
       };
       target = target.parentNode;
@@ -34,6 +41,7 @@ export default class RecentCities {
   addToRecent(location) {
     let arr = addToArray(this.list, location);
     localStorage.setItem('recentCities', JSON.stringify(arr));
+    return this.render();
   }
 
   render() {
@@ -47,5 +55,6 @@ export default class RecentCities {
         this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);   
       });    
     }
+    return this.host;
   }
 };

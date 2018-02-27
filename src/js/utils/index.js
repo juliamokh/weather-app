@@ -21,20 +21,20 @@ export const events = {
   }
 };
 
-export function initAutocomplete(input, callback) {
+export const initAutocomplete = (input, callback) => {
   const autocomplete = new google.maps.places.Autocomplete(input, { types: ['(cities)'] });
-  autocomplete.addListener('place_changed', () => {
-    const place = autocomplete.getPlace();
-    if (!place.geometry) {
-      throw new Error('Location not found');
-    }
-    else {
-      const location = {
-        city: place.name,
-        lat: place.geometry.location.lat(),
-        lon: place.geometry.location.lng()
-      };
-      callback(location);
+  autocomplete.addListener('place_changed', () => callback(autocomplete.getPlace()));
+};
+
+
+export const bindAll = (context, ...names) => {
+  names.forEach(name => {
+    if (typeof context[name] === 'function') {
+      context[name] = context[name].bind(context);
+    } else {
+      throw Error(
+        `Expected function ${name}. Instead received: ${typeof context[name]}`
+      );
     }
   });
 };
