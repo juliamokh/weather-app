@@ -1,7 +1,4 @@
-import '../css/reset.css';
-import '../css/style.css';
-
 import App from './App';
 
-const app = new App;
+const app = new App({ host: document.getElementById('root') });
 app.render();

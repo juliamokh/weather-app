@@ -1,19 +1,17 @@
 import { drawIcon } from '../utils/icons';
-import { events } from '../utils/index';
-import { bindAll } from '../utils/index';
+import { bindAll, insert } from '../utils';
 
 export default class WeekForecast {
   constructor() {
+    this.props = {};
     this.host = document.createElement('div');
-    this.host.classList.add('week-forecast');
-    
     bindAll(this, 'handleDayClick');
     this.host.addEventListener('click', this.handleDayClick);
   }
 
-  update(nextProps, forecast, units) {
-    this.props = nextProps;
-    return this.render(forecast, units);
+  update(nextProps) {
+    this.props = Object.assign({}, this.props, nextProps);
+    return this.render();
   }
 
   getShortWeekday(datetime) {
@@ -22,15 +20,15 @@ export default class WeekForecast {
     return weekday[date.getDay()];
   }
 
-  tempConverter(temp, units) {
-    if (units === 'I') return Math.round((temp * 1.8) + 32);
+  tempConverter(temp, units = this.props.units) {
+    if (units === 'FA') return Math.round((temp * 1.8) + 32);
     else return Math.round(temp);
   }
 
   handleDayClick(ev) {
     let target = ev.target;
-    while (target != this) {
-      if (target.className == 'day-forecast') {
+    while (target !== this.host) {
+      if (target.className === 'day-forecast') {
         const day = target.id;
         this.props.onDayClick(day);
         return;
@@ -39,22 +37,26 @@ export default class WeekForecast {
     }
   }
 
-  render(forecast, units) {
+  render() {
+    const { forecast } = this.props;
+
     if (forecast.data) {
-      this.host.classList.add('active');
       this.host.innerHTML = '';
+      this.host.classList.add('week-forecast');
+
       for (let i = 0; i < 7; i++) {
         const weekday = this.getShortWeekday(forecast.data[i].datetime);
         const icon = drawIcon(forecast.data[i].weather.code);
-        const temp = this.tempConverter(forecast.data[i].temp, units);
+        const temp = this.tempConverter(forecast.data[i].temp);
   
-        this.host.innerHTML += `
+        const html = `
           <div class="day-forecast" id="${i}">
             <div class="day">${weekday}</div>
             <div>${icon}</div>
             <div class="temperature">${temp}°</div>
           </div>
         `;
+        this.host = insert(this.host, html);
       }
     };
     return this.host;

@@ -51,6 +51,7 @@ html {
 .search-bar .btn-star {
   width: 50px;
   cursor: pointer;
+  outline: none;
 }
 
 .search-bar input[type="text"] {
@@ -87,11 +88,16 @@ html {
 .search-bar select {
   width: 50px;
   cursor: pointer;
+  outline: none;
+}
+
+.search-bar select option {
+  color: black;
 }
 
 /* TODAY FORECAST */
 
-.today-forecast.active {
+.today-forecast {
   padding: 20px;
   background-color:rgba(255,255,255, .1);
   border: 1px solid transparent;
@@ -157,7 +163,7 @@ html {
 
 /* WEEK FORECAST */
 
-.week-forecast.active {
+.week-forecast {
   display: flex;
   margin-top: 20px;
   background-color:rgba(255,255,255, .1);
@@ -196,8 +202,9 @@ html {
   font-size: 14px;
 }
 
-.favorite-list.active,
-.recent-list.active {
+.favorite-list,
+.recent-list {
+  position: relative;
   flex-basis: 320px;
   flex-grow: 1;
   padding: 10px;
@@ -206,8 +213,28 @@ html {
   border-radius: 5px;
 }
 
-.favorite-list.active  {
+.favorite-list  {
   margin-right: 10px;
+}
+
+.lists .btn-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  color: #fff;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+}
+
+.lists .btn-delete:hover,
+.lists .btn-delete:focus {
+  background-color:rgba(255,255,255, .3);
 }
 
 .lists h2 {

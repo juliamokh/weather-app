@@ -1,17 +1,20 @@
-import { events } from '../utils/index';
-import { addToArray } from '../utils/index';
-import { bindAll } from '../utils/index';
+import { addToArray, bindAll, insert } from '../utils';
 
-export default class FavoriteCities {
+class FavoriteCities {
   constructor() {
     this.props = {};
 
     this.host = document.createElement('div');
     this.host.classList.add('favorite-list');
 
-    bindAll(this, 'handleCityClick');
+    this.btn = document.createElement('button');
+    this.btn.type = 'button';
+    this.btn.title = 'Clear the list';
+    this.btn.classList.add('btn-delete');
+
+    bindAll(this, 'handleCityClick', 'handleDeleteClick');
     this.host.addEventListener('click', this.handleCityClick);
-    // this.listenFavorite();
+    this.btn.addEventListener('click', this.handleDeleteClick);
   }
 
   get list() {
@@ -22,15 +25,17 @@ export default class FavoriteCities {
     this.props = nextProps;
     return this.render();
   }
-  
-  // listenFavorite() {
-  //   events.subscribe('favorite', location => this.addToFavorite(location));
-  // }
+
+  addToFavorite(location) {
+    let arr = addToArray(this.list, location);
+    localStorage.setItem('favoriteCities', JSON.stringify(arr));
+    this.render();
+  }
 
   handleCityClick(ev) {
     let target = ev.target;
-    while (target != this) {
-      if (target.tagName == 'LI') {
+    while (target !== this.host) {
+      if (target.tagName === 'LI') {
         const location = this.list[target.id];
         this.props.onCityClick(location);
         return;
@@ -39,23 +44,30 @@ export default class FavoriteCities {
     }
   }
 
-  addToFavorite(location) {
-    let arr = addToArray(this.list, location);
-    localStorage.setItem('favoriteCities', JSON.stringify(arr));
+  handleDeleteClick(ev) {
+    localStorage.removeItem('favoriteCities');
     this.render();
   }
 
   render() {
+    this.host.innerHTML = `
+      <h2><i class="far fa-star"></i> Favorite</h2>
+      <ul id="favorite"></ul>
+    `;
+    this.btn.innerHTML = `<i class="far fa-trash-alt"></i>`;
+
+    let items = '';
+
     if (this.list.length) {
-      this.host.classList.add('active');
-      this.host.innerHTML = `
-        <h2><i class="far fa-star"></i> Favorite</h2>
-        <ul id="favorite"></ul>
-      `;
       this.list.forEach((location, index) => {
-        this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);  
+        items += `<li id="${index}">${location.city}</li>`;  
       });    
     }
+    
+    this.host = insert(this.host, [items, this.btn]);
+
     return this.host;
   }
 };
+
+export default FavoriteCities;

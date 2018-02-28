@@ -1,15 +1,20 @@
-import { events } from '../utils/index';
-import { addToArray } from '../utils/index';
-import { bindAll } from '../utils/index';
+import { addToArray, bindAll, insert } from '../utils';
 
-export default class RecentCities {
+class RecentCities {
   constructor() {
+    this.props = {};
+    
     this.host = document.createElement('div');
     this.host.classList.add('recent-list');
 
-    bindAll(this, 'handleCityClick');
+    this.btn = document.createElement('button');
+    this.btn.type = 'button';
+    this.btn.title = 'Clear the list';
+    this.btn.classList.add('btn-delete');
+
+    bindAll(this, 'handleCityClick', 'handleDeleteClick');
     this.host.addEventListener('click', this.handleCityClick);
-    // this.listenRecent();
+    this.btn.addEventListener('click', this.handleDeleteClick);
   }
 
   get list() {
@@ -20,23 +25,6 @@ export default class RecentCities {
     this.props = nextProps;
     return this.render();
   }
-  
-  // listenRecent() {
-  //   events.subscribe('recent', location => this.addToRecent(location));
-  // }
-
-  handleCityClick(ev) {
-    let target = ev.target;
-    while (target != this) {
-      if (target.tagName == 'LI') {
-        const location = this.list[target.id];
-        console.log(location);
-        this.props.onCityClick(location);
-        return;
-      };
-      target = target.parentNode;
-    }
-  }
 
   addToRecent(location) {
     let arr = addToArray(this.list, location);
@@ -44,17 +32,42 @@ export default class RecentCities {
     return this.render();
   }
 
-  render() {
-    if (this.list.length) {
-      this.host.classList.add('active');
-      this.host.innerHTML = `
-        <h2><i class="fas fa-history"></i> Recently viewed</h2>
-        <ul id="recent"></ul>
-      `;
-      this.list.forEach((location, index) => {
-        this.host.insertAdjacentHTML('beforeend', `<li id="${index}">${location.city}</li>`);   
-      });    
+  handleCityClick(ev) {
+    let target = ev.target;
+    while (target !== this.host) {
+      if (target.tagName === 'LI') {
+        const location = this.list[target.id];
+        this.props.onCityClick(location);
+        return;
+      };
+      target = target.parentNode;
     }
+  }
+
+  handleDeleteClick(ev) {
+    localStorage.removeItem('recentCities');
+    this.render();
+  }
+
+  render() {
+    this.host.innerHTML = `
+      <h2><i class="fas fa-history"></i> Recently viewed</h2>
+      <ul id="recent"></ul>
+    `;
+    this.btn.innerHTML = `<i class="far fa-trash-alt"></i>`;
+
+    let items = '';
+    
+    if (this.list.length) {
+      this.list.forEach((location, index) => {
+        items += `<li id="${index}">${location.city}</li>`;   
+      });    
+    };
+    
+    this.host = insert(this.host, [items, this.btn]);
+
     return this.host;
   }
 };
+
+export default RecentCities;

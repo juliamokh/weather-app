@@ -1,9 +1,15 @@
 import { drawIcon } from '../utils/icons';
+import { insert } from '../utils';
 
-export default class DayForecast {
+class DayForecast {
   constructor() {
+    this.props = {};
     this.host = document.createElement('div');
-    this.host.classList.add('today-forecast');
+  }
+
+  update(nextProps) {
+    this.props = Object.assign({}, this.props, nextProps);
+    return this.render();
   }
 
   getWeekday(datetime) {
@@ -12,47 +18,56 @@ export default class DayForecast {
     return weekday[date.getDay()];
   }
 
-  tempConverter(temp, units) {
-    if (units === 'I') return Math.round((temp * 1.8) + 32);
+  tempConverter(temp, units = this.props.units) {
+    if (units === 'FA') return Math.round((temp * 1.8) + 32);
     else return Math.round(temp);
   }
 
-  render(forecast, units, day = 0) {
-    const city = forecast.city_name;
-    const country = forecast.country_code;
-    const weekday = this.getWeekday(forecast.data[day].datetime);
-    const date = forecast.data[day].datetime;
-    const wind = forecast.data[day].wind_spd;
-    const humidity = forecast.data[day].rh;
-    const icon = drawIcon(forecast.data[day].weather.code);
-    const description = forecast.data[day].weather.description;
-    const minTemp = this.tempConverter(forecast.data[day].min_temp, units);
-    const maxTemp = this.tempConverter(forecast.data[day].max_temp, units);
-    const temp = this.tempConverter(forecast.data[day].temp, units);
+  render() {
+    const { forecast, day } = this.props;
 
-    this.host.classList.add('active');
-    this.host.innerHTML = `
-      <div class="city">${city}, ${country}</div>
-      <div class="container">
-        <div class="wrapper">
-          <div class="current-day">${weekday}</div>
-          <time class="date">${date}</time>
-          <div class="wind">Wind ${wind} m/s</div>
-          <div class="humidity"><i class="fas fa-tint"></i> ${humidity}%</div>
-        </div>
-        <div class="wrapper">
-          <div>${icon}</div>
-          <div class="weather">${description}</div>
-        </div>
-        <div class="wrapper">
-          <div class="temperature">
-            <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ${minTemp}°</div>
-            <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ${maxTemp}°</div>
+    if (forecast.data) {
+      const city = forecast.city_name;
+      const country = forecast.country_code;
+      const weekday = this.getWeekday(forecast.data[day].datetime);
+      const date = forecast.data[day].datetime;
+      const wind = forecast.data[day].wind_spd;
+      const humidity = forecast.data[day].rh;
+      const icon = drawIcon(forecast.data[day].weather.code);
+      const description = forecast.data[day].weather.description;
+      const minTemp = this.tempConverter(forecast.data[day].min_temp);
+      const maxTemp = this.tempConverter(forecast.data[day].max_temp);
+      const temp = this.tempConverter(forecast.data[day].temp);
+
+      this.host.innerHTML = '';
+      this.host.classList.add('today-forecast');
+  
+      const html = `
+        <div class="city">${city}, ${country}</div>
+        <div class="container">
+          <div class="wrapper">
+            <div class="current-day">${weekday}</div>
+            <time class="date">${date}</time>
+            <div class="wind">Wind ${wind} m/s</div>
+            <div class="humidity"><i class="fas fa-tint"></i> ${humidity}%</div>
           </div>
-          <div class="current-temperature">${temp}°</div>
+          <div class="wrapper">
+            <div>${icon}</div>
+            <div class="weather">${description}</div>
+          </div>
+          <div class="wrapper">
+            <div class="temperature">
+              <div class="min_temperature"><i class="fas fa-long-arrow-alt-down"></i> ${minTemp}°</div>
+              <div class="max_temperature"><i class="fas fa-long-arrow-alt-up"></i> ${maxTemp}°</div>
+            </div>
+            <div class="current-temperature">${temp}°</div>
+          </div>
         </div>
-      </div>
-    `;
+      `;
+      this.host = insert(this.host, html);
+    }
     return this.host;
   }
 };
+
+export default DayForecast;
