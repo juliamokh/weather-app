@@ -1,8 +1,8 @@
 class Component {
   constructor(props) {
-    this.props = props || {};
     this.state = {};
-    this.host = null;
+    this.props = props || {};
+    this.host = document.createElement('div');
   }
 
   updateState(nextState) {
@@ -15,22 +15,23 @@ class Component {
     return this._render();
   }
 
-  _render() {
-    this.host.innerHTML = '';
-
-    const children = this.render();
-    
+  insertChildren(children, host = this.host) {
+    let node = host;
     if (typeof children === 'string') {
-      this.host.insertAdjacentHTML('beforeend', children)
+      node.insertAdjacentHTML('beforeend', children)
     } else if (Array.isArray(children)) {
         children.forEach(elem => {
-          (typeof elem === 'string') ? this.host.insertAdjacentHTML('beforeend', elem) : this.host.append(elem);
+          (typeof elem === 'string') ? node.insertAdjacentHTML('beforeend', elem) : node.append(elem);
         });
     } else {
-      this.host.append(elem);
+      node.append(children);
     };
+    return node;
+  }
 
-    return this.host;
+  _render() {
+    this.host.innerHTML = '';
+    return this.insertChildren(this.render());
   }
 
   render() {}

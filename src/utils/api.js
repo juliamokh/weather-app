@@ -11,5 +11,4 @@ export const get = search => {
       }
       return response.json();
     })
-    .catch(err => console.log(`Request failed: ${err.message}`));  
 };

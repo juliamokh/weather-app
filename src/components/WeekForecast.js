@@ -1,17 +1,13 @@
+import Component from '../blackbox';
 import { drawIcon } from '../utils/icons';
-import { bindAll, insert } from '../utils';
+import { bindAll } from '../utils';
 
-export default class WeekForecast {
+class WeekForecast extends Component {
   constructor() {
-    this.props = {};
-    this.host = document.createElement('div');
+    super();
+    
     bindAll(this, 'handleDayClick');
     this.host.addEventListener('click', this.handleDayClick);
-  }
-
-  update(nextProps) {
-    this.props = Object.assign({}, this.props, nextProps);
-    return this.render();
   }
 
   getShortWeekday(datetime) {
@@ -41,24 +37,25 @@ export default class WeekForecast {
     const { forecast } = this.props;
 
     if (forecast.data) {
-      this.host.innerHTML = '';
       this.host.classList.add('week-forecast');
-
+      
+      let children = '';
       for (let i = 0; i < 7; i++) {
         const weekday = this.getShortWeekday(forecast.data[i].datetime);
         const icon = drawIcon(forecast.data[i].weather.code);
         const temp = this.tempConverter(forecast.data[i].temp);
   
-        const html = `
+        children += `
           <div class="day-forecast" id="${i}">
             <div class="day">${weekday}</div>
             <div>${icon}</div>
             <div class="temperature">${temp}°</div>
           </div>
         `;
-        this.host = insert(this.host, html);
-      }
-    };
-    return this.host;
+      };
+      return children;
+    } else return '';
   }
 };
+
+export default WeekForecast;

@@ -1,3 +1,5 @@
+import Component from '../blackbox';
+
 import SearchBar from './SearchBar';
 import DayForecast from './DayForecast';
 import WeekForecast from './WeekForecast';
@@ -10,9 +12,10 @@ import '../styles/app.css';
 import { get } from '../utils/api';
 import { bindAll, insert } from '../utils';
 
-class App {
+class App extends Component {
   constructor({ host }) {
-    this.props = {};
+    super();
+
     this.state = {
       location: {
         address: this.getCityFromLink() || '',
@@ -27,8 +30,10 @@ class App {
     this.host = host;
     this.main = document.createElement('div');
     this.main.classList.add('page-content')
-    this.aside = document.createElement('div');
-    this.aside.classList.add('lists');
+    this.lists = document.createElement('div');
+    this.lists.classList.add('lists');
+    this.error = document.createElement('div');
+    this.error.classList.add('error');
     
     this.SearchBar = new SearchBar;
     this.DayForecast = new DayForecast;
@@ -38,16 +43,6 @@ class App {
 
     bindAll(this, 'listenLocation', 'listenUnitsChange', 'listenStarClick', 'listenDayClick'); 
     this.popLink();
-  }
-
-  updateState(nextState) {
-    this.state = Object.assign({}, this.state, nextState);
-    this.render();
-  }
-
-  update(nextProps) {
-    this.props = nextProps;
-    return this.render();
   }
 
   getCityFromLink() {
@@ -91,8 +86,18 @@ class App {
   getForecast(search) {
     get(search)
       .then(data => {
+        this.handleError();
         this.processData(data);
       })
+      .catch(err => {
+        console.log(`Request failed: ${err.message}`);
+        this.handleError(err);
+      }); 
+  }
+
+  handleError(err) {
+    if (err) this.error.innerText = `Request failed: ${err.message}`;
+    else this.error.innerText = ``;
   }
 
   processData(data) {
@@ -106,27 +111,23 @@ class App {
   }
 
   render() {
-    this.host.innerHTML = '';
-    this.main.innerHTML = '';
-    this.aside.innerHTML = '';
-
     const { location: {address}, units, data:forecast } = this.state;
 
-    this.SearchBar.update({ address,
-      onSubmit: this.listenLocation,
-      onUnitsChange: this.listenUnitsChange,
-      onStarClick: this.listenStarClick });
-    this.DayForecast.update({ forecast, units, day: 0 });
-    this.WeekForecast.update({ onDayClick: this.listenDayClick, forecast, units });
-    this.FavoriteCities.update({ onCityClick: this.listenLocation });
-    this.RecentCities.update({ onCityClick: this.listenLocation });
-
-    this.host = insert(this.host, [
-      insert(this.main, [this.SearchBar.host, this.DayForecast.host, this.WeekForecast.host]),
-      insert(this.aside, [this.FavoriteCities.host, this.RecentCities.host])
-    ]);
-
-    return this.host;
+    return [
+      this.error,
+      this.insertChildren([
+        this.SearchBar.update({ address,
+          onSubmit: this.listenLocation,
+          onUnitsChange: this.listenUnitsChange,
+          onStarClick: this.listenStarClick }),
+        this.DayForecast.update({ forecast, units, day: 0 }),
+        this.WeekForecast.update({ onDayClick: this.listenDayClick, forecast, units })
+      ], this.main),
+      this.insertChildren([
+        this.FavoriteCities.update({ onCityClick: this.listenLocation }),
+        this.RecentCities.update({ onCityClick: this.listenLocation })
+      ], this.lists)
+    ];
   }
 };
 

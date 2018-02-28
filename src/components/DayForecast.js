@@ -1,15 +1,9 @@
+import Component from '../blackbox';
 import { drawIcon } from '../utils/icons';
-import { insert } from '../utils';
 
-class DayForecast {
+class DayForecast extends Component {
   constructor() {
-    this.props = {};
-    this.host = document.createElement('div');
-  }
-
-  update(nextProps) {
-    this.props = Object.assign({}, this.props, nextProps);
-    return this.render();
+    super();
   }
 
   getWeekday(datetime) {
@@ -39,10 +33,9 @@ class DayForecast {
       const maxTemp = this.tempConverter(forecast.data[day].max_temp);
       const temp = this.tempConverter(forecast.data[day].temp);
 
-      this.host.innerHTML = '';
       this.host.classList.add('today-forecast');
-  
-      const html = `
+
+      return `
         <div class="city">${city}, ${country}</div>
         <div class="container">
           <div class="wrapper">
@@ -64,9 +57,7 @@ class DayForecast {
           </div>
         </div>
       `;
-      this.host = insert(this.host, html);
-    }
-    return this.host;
+    } else return '';
   }
 };
 

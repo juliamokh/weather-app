@@ -1,10 +1,10 @@
-import { addToArray, bindAll, insert } from '../utils';
+import Component from '../blackbox';
+import { addToArray, bindAll } from '../utils';
 
-class RecentCities {
+class RecentCities extends Component {
   constructor() {
-    this.props = {};
-    
-    this.host = document.createElement('div');
+    super(); 
+
     this.host.classList.add('recent-list');
 
     this.btn = document.createElement('button');
@@ -21,13 +21,8 @@ class RecentCities {
     return localStorage.getItem('recentCities') ? JSON.parse(localStorage.getItem('recentCities')) : [];
   }
 
-  update(nextProps) {
-    this.props = nextProps;
-    return this.render();
-  }
-
   addToRecent(location) {
-    let arr = addToArray(this.list, location);
+    const arr = addToArray(this.list, location);
     localStorage.setItem('recentCities', JSON.stringify(arr));
     return this.render();
   }
@@ -50,21 +45,20 @@ class RecentCities {
   }
 
   render() {
-    this.host.innerHTML = `<h2><i class="fas fa-history"></i> Recently viewed</h2>`;
     this.btn.innerHTML = `<i class="far fa-trash-alt"></i>`;
 
-    const list = document.createElement('ul');
     let items = '';
-    
     if (this.list.length) {
       this.list.forEach((location, index) => {
         items += `<li id="${index}">${location.address}</li>`;   
       });    
     };
-    
-    this.host = insert(this.host, [insert(list, items), this.btn]);
 
-    return this.host;
+    return [
+      `<h2><i class="fas fa-history"></i> Recently viewed</h2>`,
+      this.insertChildren(items, document.createElement('ul')),
+      this.btn
+    ];
   }
 };
 

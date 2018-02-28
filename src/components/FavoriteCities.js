@@ -1,10 +1,10 @@
-import { addToArray, bindAll, insert } from '../utils';
+import Component from '../blackbox';
+import { addToArray, bindAll } from '../utils';
 
-class FavoriteCities {
+class FavoriteCities extends Component {
   constructor() {
-    this.props = {};
+    super();
 
-    this.host = document.createElement('div');
     this.host.classList.add('favorite-list');
 
     this.btn = document.createElement('button');
@@ -21,13 +21,8 @@ class FavoriteCities {
     return localStorage.getItem('favoriteCities') ? JSON.parse(localStorage.getItem('favoriteCities')) : [];
   }
 
-  update(nextProps) {
-    this.props = nextProps;
-    return this.render();
-  }
-
   addToFavorite(location) {
-    let arr = addToArray(this.list, location);
+    const arr = addToArray(this.list, location);
     localStorage.setItem('favoriteCities', JSON.stringify(arr));
     this.render();
   }
@@ -50,21 +45,20 @@ class FavoriteCities {
   }
 
   render() {
-    this.host.innerHTML = `<h2><i class="far fa-star"></i> Favorite</h2>`;
     this.btn.innerHTML = `<i class="far fa-trash-alt"></i>`;
 
-    const list = document.createElement('ul');
-    let items = '';
-
+    let items = '';  
     if (this.list.length) {
       this.list.forEach((location, index) => {
         items += `<li id="${index}">${location.address}</li>`;  
-      });    
+      });  
     }
-    
-    this.host = insert(this.host, [insert(list, items), this.btn]);
 
-    return this.host;
+    return [
+      `<h2><i class="far fa-star"></i> Favorite</h2>`,
+      this.insertChildren(items, document.createElement('ul')),
+      this.btn
+    ];
   }
 };
 
