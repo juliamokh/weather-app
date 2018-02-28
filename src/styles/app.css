@@ -243,14 +243,13 @@ html {
 }
 
 .lists li {
-  display: inline-block;
-  margin-right: 10px;
-  text-transform: lowercase;
+  padding: 5px;
+  border-bottom: 1px solid rgba(255,255,255, .2);
+  border-radius: 5px;
   list-style: none;
 }
 
 .lists li:hover {
-  color: rgba(255,255,255, 0.8);
-  border-bottom: 1px solid rgba(255,255,255, .8);
+  background-color:rgba(255,255,255, .3);
   cursor: pointer;
 }

@@ -1,4 +1,4 @@
-export default class Component {
+class Component {
   constructor(props) {
     this.props = props || {};
     this.state = {};
@@ -11,25 +11,29 @@ export default class Component {
   }
 
   update(nextProps) {
-    this.props = nextProps;
+    this.props = Object.assign({}, this.props, nextProps);
     return this._render();
   }
 
   _render() {
-    const children = this.render();
-    
     this.host.innerHTML = '';
 
+    const children = this.render();
+    
     if (typeof children === 'string') {
-      this.host.innerHTML = children;
+      this.host.insertAdjacentHTML('beforeend', children)
     } else if (Array.isArray(children)) {
-      this.host.append(...children);
+        children.forEach(elem => {
+          (typeof elem === 'string') ? this.host.insertAdjacentHTML('beforeend', elem) : this.host.append(elem);
+        });
     } else {
-      this.host.append(children);
-    }
+      this.host.append(elem);
+    };
 
     return this.host;
   }
 
   render() {}
 };
+
+export default Component;

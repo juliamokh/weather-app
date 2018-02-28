@@ -1,14 +1,14 @@
-import SearchBar from './components/SearchBar';
-import DayForecast from './components/DayForecast';
-import WeekForecast from './components/WeekForecast';
-import RecentCities from './components/RecentCities';
-import FavoriteCities from './components/FavoriteCities';
+import SearchBar from './SearchBar';
+import DayForecast from './DayForecast';
+import WeekForecast from './WeekForecast';
+import RecentCities from './RecentCities';
+import FavoriteCities from './FavoriteCities';
 
-import '../css/reset.css';
-import '../css/style.css';
+import '../styles/reset.css';
+import '../styles/app.css';
 
-import { get } from './utils/api';
-import { bindAll, insert } from './utils';
+import { get } from '../utils/api';
+import { bindAll, insert } from '../utils';
 
 class App {
   constructor({ host }) {

@@ -50,21 +50,19 @@ class RecentCities {
   }
 
   render() {
-    this.host.innerHTML = `
-      <h2><i class="fas fa-history"></i> Recently viewed</h2>
-      <ul id="recent"></ul>
-    `;
+    this.host.innerHTML = `<h2><i class="fas fa-history"></i> Recently viewed</h2>`;
     this.btn.innerHTML = `<i class="far fa-trash-alt"></i>`;
 
+    const list = document.createElement('ul');
     let items = '';
     
     if (this.list.length) {
       this.list.forEach((location, index) => {
-        items += `<li id="${index}">${location.city}</li>`;   
+        items += `<li id="${index}">${location.address}</li>`;   
       });    
     };
     
-    this.host = insert(this.host, [items, this.btn]);
+    this.host = insert(this.host, [insert(list, items), this.btn]);
 
     return this.host;
   }
