@@ -32,15 +32,8 @@ html {
 .error {
   position: absolute;
   top: 10px;
-  width: 640px;
-  height: 30px;
   color: rgb(195,60,84);
-  border: 1px solid transparent;
-  border-radius: 5px;
   line-height: 30px;
-  font-size: 18px;
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
   text-transform: uppercase;
 }
 
@@ -89,6 +82,10 @@ html {
   font-size: 18px;
   font-family: 'Roboto', sans-serif;
   color: rgba(255,255,255, .4);
+}
+
+.search-bar input[type="text"]::selection {
+  background-color: #C5D9E2;
 }
 
 .search-bar .icon-search {
