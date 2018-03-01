@@ -1,4 +1,4 @@
-# Weather app
+# Weather App
 
 [demo](https://juliamokh.github.io/weather-app/)
 

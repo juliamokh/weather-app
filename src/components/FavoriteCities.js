@@ -24,7 +24,7 @@ class FavoriteCities extends Component {
   addToFavorite(location) {
     const arr = addToArray(this.list, location);
     localStorage.setItem('favoriteCities', JSON.stringify(arr));
-    this.render();
+    this._render();
   }
 
   handleCityClick(ev) {
@@ -41,7 +41,7 @@ class FavoriteCities extends Component {
 
   handleDeleteClick(ev) {
     localStorage.removeItem('favoriteCities');
-    this.render();
+    this._render();
   }
 
   render() {

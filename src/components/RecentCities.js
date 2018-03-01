@@ -24,7 +24,7 @@ class RecentCities extends Component {
   addToRecent(location) {
     const arr = addToArray(this.list, location);
     localStorage.setItem('recentCities', JSON.stringify(arr));
-    return this.render();
+    this._render();
   }
 
   handleCityClick(ev) {
@@ -41,7 +41,7 @@ class RecentCities extends Component {
 
   handleDeleteClick(ev) {
     localStorage.removeItem('recentCities');
-    this.render();
+    this._render();
   }
 
   render() {
