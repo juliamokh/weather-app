@@ -28,14 +28,9 @@ class RecentCities extends Component {
   }
 
   handleCityClick(ev) {
-    let target = ev.target;
-    while (target !== this.host) {
-      if (target.tagName === 'LI') {
-        const location = this.list[target.id];
-        this.props.onCityClick(location);
-        return;
-      };
-      target = target.parentNode;
+    if (ev.target.tagName === 'LI') {
+      const location = this.list[ev.target.id];
+      this.props.onCityClick(location);
     }
   }
 

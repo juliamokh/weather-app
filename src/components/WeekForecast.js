@@ -37,19 +37,19 @@ class WeekForecast extends Component {
     const { forecast } = this.props;
 
     if (forecast.data) {
-      this.host.classList.add('week-forecast');
+      if (!this.host.classList.contains('week-forecast')) {
+        this.host.classList.add('week-forecast');
+      };
       
       let children = '';
       for (let i = 0; i < 7; i++) {
-        const weekday = this.getShortWeekday(forecast.data[i].datetime);
-        const icon = drawIcon(forecast.data[i].weather.code);
-        const temp = this.tempConverter(forecast.data[i].temp);
+        const { datetime, weather: {code}, temp } = forecast.data[i];
   
         children += `
           <div class="day-forecast" id="${i}">
-            <div class="day">${weekday}</div>
-            <div>${icon}</div>
-            <div class="temperature">${temp}°</div>
+            <div class="day">${this.getShortWeekday(datetime)}</div>
+            <div>${drawIcon(code)}</div>
+            <div class="temperature">${this.tempConverter(temp)}°</div>
           </div>
         `;
       };

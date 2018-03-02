@@ -43,34 +43,22 @@ class SearchBar extends Component {
   }
 
   handleStarClick(ev) {
-    let target = ev.target;
-    while (target !== this.host) {
-      if (target.className === 'btn-star') {
-        this.props.onStarClick();
-        return;
-      }
-      target = target.parentNode;
+    if (ev.target.className === 'btn-star') {
+      this.props.onStarClick();
     }
   }
 
   handleUnitsChange(ev) {
-    let target = ev.target;
-    while (target !== this.host) {
-      if (target.id === 'units') {
-        const units = ev.target.value;
-        this.updateState({ units: ev.target.value });
-        this.props.onUnitsChange(units);
-        return;
-      }
-      target = target.parentNode;
+    if (ev.target.id === 'units') {
+      const units = ev.target.value;
+      this.updateState({ units });
+      this.props.onUnitsChange(units);
     }
   }
 
   render() {
-    const { isValid } = this.state;
+    const { isValid, units } = this.state;
     isValid ? this.host.classList.remove('invalid') : this.host.classList.add('invalid');
-
-    const { units } = this.state;
 
     const { address } = this.props;
     if (address) this.input.value = address;

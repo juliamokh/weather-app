@@ -15,20 +15,6 @@ export const bindAll = (context, ...names) => {
   });
 };
 
-export const insert = (host, children) => {
-  const node = host;
-  if (typeof children === 'string') {
-    node.insertAdjacentHTML('beforeend', children)
-  } else if (Array.isArray(children)) {
-      children.forEach(elem => {
-        (typeof elem === 'string') ? node.insertAdjacentHTML('beforeend', elem) : node.append(elem);
-      });
-  } else {
-    node.append(elem);
-  };
-  return node;
-}
-
 const removeDuplicates = (myArr, prop) => {
   return myArr.filter((obj, pos, arr) => {
       return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
@@ -37,8 +23,8 @@ const removeDuplicates = (myArr, prop) => {
 
 export const addToArray = (list, location) => {
   let arr = list;
-  arr.push(location);
+  arr.unshift(location);
   arr = removeDuplicates(arr, 'city');
-  if (arr.length === 11) arr.shift();
+  if (arr.length > 10) arr.pop();
   return arr;
 };
